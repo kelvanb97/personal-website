@@ -1,0 +1,30 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"ui": "stream",
+	"tasks": {
+		"build": {
+			"env": [
+				"NODE_ENV",
+				"NEXT_PUBLIC_APP_URL",
+				"NEXT_PUBLIC_POSTHOG_API_KEY",
+				"NEXT_PUBLIC_POSTHOG_HOST"
+			],
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"outputs": [".next/**", "!.next/cache/**"]
+		},
+		"lint": {
+			"dependsOn": ["^lint"]
+		},
+		"check-types": {
+			"dependsOn": ["^check-types"]
+		},
+		"test": {
+			"dependsOn": ["^test"]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		}
+	}
+}

@@ -1,0 +1,9 @@
+packages:
+    - "apps/*"
+    - "packages/*"
+    - "packages/_api/*"
+    - "packages/_app/*"
+    - "packages/_core/*"
+    - "packages/_design/*"
+    - "packages/_integrations/*"
+    - "packages/_shared/*"

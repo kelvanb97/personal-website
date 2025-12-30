@@ -1,0 +1,35 @@
+{
+	"name": "@kelvan-integrations/posthog-analytics",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		"./track-action": "./src/next/actions/posthog-track-action.ts",
+		"./alias-action": "./src/next/actions/posthog-alias-action.ts",
+		"./browser/client": "./src/browser/client.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "eslint ./src"
+	},
+	"dependencies": {
+		"@t3-oss/env-nextjs": "0.12.0",
+		"posthog-js": "1.257.2",
+		"posthog-node": "5.6.0",
+		"zod": "4.1.12"
+	},
+	"devDependencies": {
+		"@kelvan-core/eslint": "workspace:*",
+		"@kelvan-core/tsconfig": "workspace:*",
+		"@types/node": "20.19.2",
+		"eslint": "9.24.0"
+	},
+	"imports": {
+		"#*": [
+			"./src/*",
+			"./src/*.ts",
+			"./src/*.tsx"
+		]
+	}
+}

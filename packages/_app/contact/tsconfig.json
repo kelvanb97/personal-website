@@ -1,0 +1,4 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "@kelvan-core/tsconfig/strict.json"
+}

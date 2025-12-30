@@ -1,0 +1,50 @@
+{
+	"name": "@kelvan-api/contact",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		"./actions/contact-action": "./src/actions/contact-action.ts",
+		"./schema/contact-schema": "./src/schema/contact-schema.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "eslint ./src"
+	},
+	"peerDependencies": {
+		"next": "^16.0.10",
+		"zod": "^4.1.12"
+	},
+	"dependencies": {
+		"@kelvan-core/next-safe-action": "workspace:*",
+		"@kelvan-core/result": "workspace:*"
+	},
+	"devDependencies": {
+		"@kelvan-core/eslint": "workspace:*",
+		"@kelvan-core/tsconfig": "workspace:*",
+		"@types/node": "20.19.2",
+		"eslint": "9.24.0",
+		"next": "16.0.10",
+		"zod": "4.1.12"
+	},
+	"imports": {
+		"#*": [
+			"./src/*",
+			"./src/*.ts",
+			"./src/*.tsx"
+		],
+		"#actions*": [
+			"./src/actions*",
+			"./src/actions*.ts"
+		],
+		"#api*": [
+			"./src/api*",
+			"./src/api*.ts"
+		],
+		"#schema*": [
+			"./src/schema*",
+			"./src/schema*.ts"
+		]
+	}
+}
