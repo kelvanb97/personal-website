@@ -1,22 +1,29 @@
+import Image from "next/image"
 import Link from "next/link"
-import { LockupHorizontal } from "./lockup-horizontal"
+import LockupHorizontal from "./files/lockup-horizontal.png"
 
-interface ILogoProps extends React.SVGProps<SVGSVGElement> {
+interface ILogoProps {
 	href?: string
+	width?: number
 }
 
-export function Logo({ href, ...props }: ILogoProps) {
-	if (!href) {
-		return <LogoBody {...props} />
-	}
+export function Logo({ href, width = 100 }: ILogoProps) {
+	if (!href)
+		return (
+			<Image
+				src={LockupHorizontal}
+				alt="Kelvan Brandt Logo"
+				width={width}
+			/>
+		)
 
 	return (
 		<Link href={href}>
-			<LogoBody {...props} />
+			<Image
+				src={LockupHorizontal}
+				alt="Kelvan Brandt Logo"
+				width={width}
+			/>
 		</Link>
 	)
-}
-
-function LogoBody(props: React.SVGProps<SVGSVGElement>) {
-	return <LockupHorizontal {...props} />
 }

@@ -5,10 +5,6 @@ import { Accordion } from "@kelvan-design/ui/library/accordion"
 import { Button } from "@kelvan-design/ui/library/button"
 import { NavbarContainer } from "@kelvan-design/ui/library/navbar-container"
 import {
-	NavigationMenu,
-	NavigationMenuList,
-} from "@kelvan-design/ui/library/navigation-menu"
-import {
 	Sheet,
 	SheetContent,
 	SheetHeader,
@@ -21,42 +17,12 @@ import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import Link from "next/link"
 
-export function Navbar() {
+export function NavbarFooter() {
 	return (
 		<>
 			{/* Desktop */}
-			<NavbarContainer className="sticky top-0 z-50 hidden lg:block bg-background/10 backdrop-blur-md border-b border-white/10">
-				<XStack className="items-center gap-6">
-					<Logo width={100} />
-				</XStack>
-				<NavigationMenu>
-					<NavigationMenuList>
-						{MENU_ITEM_LIST.map((item) => (
-							<MenuLink
-								key={item.title}
-								title={item.title}
-								anchor={item.anchor}
-							/>
-						))}
-					</NavigationMenuList>
-				</NavigationMenu>
-				<XStack className="items-end gap-4">
-					<Link href="#generate-a-sample">
-						<Button className="font-bold">Generate a sample</Button>
-					</Link>
-					<Button
-						variant="outline"
-						className="font-bold"
-						onClick={() =>
-							window.open(
-								"https://cal.com/tanner-kelvan/15-min",
-								"_blank",
-							)
-						}
-					>
-						Book a call
-					</Button>
-				</XStack>
+			<NavbarContainer className="fixed bottom-0 z-50 hidden lg:block bg-primary-foreground/80 backdrop-blur-md border-t border-white/10">
+				<Button>start</Button>
 			</NavbarContainer>
 			{/* Mobile */}
 			<NavbarContainer className="sticky top-0 z-50 block lg:hidden bg-background/10 backdrop-blur-md border-b border-white/10">
