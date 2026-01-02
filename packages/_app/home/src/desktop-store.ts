@@ -37,7 +37,7 @@ type TDesktopActions = {
 	openWindow: (id: TDesktopItemId) => void
 	closeWindow: (id: TDesktopItemId) => void
 	toggleMinimize: (id: TDesktopItemId) => void
-	setMaximized: (id: TDesktopItemId, isMaximized: boolean) => void
+	toggleMaximize: (id: TDesktopItemId) => void
 
 	setWindowPos: (
 		id: TDesktopItemId,
@@ -195,10 +195,11 @@ export const useDesktopStore = create<TDesktopState & TDesktopActions>()(
 						},
 					}
 				}),
-			setMaximized: (id, isMaximized) =>
+			toggleMaximize: (id) =>
 				set((s) => {
 					const item = s.items[id]
 					if (!item) return s
+					const nextMax = !item.window.isMaximized
 					return {
 						items: {
 							...s.items,
@@ -206,7 +207,7 @@ export const useDesktopStore = create<TDesktopState & TDesktopActions>()(
 								...item,
 								window: {
 									...item.window,
-									isMaximized,
+									isMaximized: nextMax,
 									isOpen: true,
 									isMinimized: false,
 								},
