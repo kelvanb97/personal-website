@@ -61,6 +61,7 @@
 	},
 	"dependencies": {
 		"@kelvan-core/next-safe-action": "workspace:*",
+		"@kelvan-core/use-click-outside": "workspace:*",
 		"zustand": "5.0.9"
 	}
 }

@@ -11,6 +11,7 @@ import Image from "next/image"
 import { useCallback, useMemo, useRef, useState } from "react"
 
 const PADDING = 16
+
 const DESKTOP_SHORTCUT_WIDTH = 112
 const DESKTOP_SHORTCUT_HEIGHT = 60
 const DESKTOP_SHORTCUT_ICON_SIZE = DESKTOP_SHORTCUT_WIDTH * 0.33
@@ -40,12 +41,31 @@ export function DesktopShortcut({
 }: IDesktopItemProps) {
 	const animRef = useRef<number | null>(null)
 
-	const { setShortcutPos } = useMemo(() => useDesktopStore.getState(), [])
+	const { setShortcutPos, openWindow } = useMemo(
+		() => useDesktopStore.getState(),
+		[],
+	)
 
 	const [isHovered, setIsHovered] = useState(false)
 
 	const onMouseEnter = useCallback(() => setIsHovered(true), [])
 	const onMouseLeave = useCallback(() => setIsHovered(false), [])
+
+	const suppressClickRef = useRef(false)
+
+	const handleDoubleClick = useCallback(
+		(e: React.MouseEvent) => {
+			if (suppressClickRef.current) {
+				e.preventDefault()
+				e.stopPropagation()
+				return
+			}
+			e.preventDefault()
+			e.stopPropagation()
+			openWindow(id)
+		},
+		[id, openWindow],
+	)
 
 	const dragRef = useRef<{
 		pointerId: number
@@ -136,6 +156,8 @@ export function DesktopShortcut({
 
 	const endDrag = useCallback(
 		(e: React.PointerEvent) => {
+			e.preventDefault()
+			e.stopPropagation()
 			const { items: allItems } = useDesktopStore.getState()
 
 			const d = dragRef.current
@@ -224,6 +246,7 @@ export function DesktopShortcut({
 			onPointerUp={endDrag}
 			onPointerCancel={endDrag}
 			onLostPointerCapture={endDrag}
+			onDoubleClick={handleDoubleClick}
 		>
 			<Image
 				src={iconSrc}
