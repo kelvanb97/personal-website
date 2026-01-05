@@ -14,7 +14,6 @@ const PADDING = 16
 
 const DESKTOP_SHORTCUT_WIDTH = 112
 const DESKTOP_SHORTCUT_HEIGHT = 60
-const DESKTOP_SHORTCUT_ICON_SIZE = DESKTOP_SHORTCUT_WIDTH * 0.33
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
@@ -31,6 +30,7 @@ interface IDesktopItemProps {
 	desktopShortcut: TDesktopItem["shortcut"]
 	iconSrc: string
 	viewportSize: { width: number; height: number }
+	desktopIconCoefficient?: number
 }
 
 export function DesktopShortcut({
@@ -38,8 +38,14 @@ export function DesktopShortcut({
 	desktopShortcut,
 	iconSrc,
 	viewportSize,
+	desktopIconCoefficient = 0.4,
 }: IDesktopItemProps) {
 	const animRef = useRef<number | null>(null)
+
+	const desktopIconSize = useMemo(
+		() => DESKTOP_SHORTCUT_WIDTH * desktopIconCoefficient,
+		[desktopIconCoefficient],
+	)
 
 	const { setShortcutPos, openWindow } = useMemo(
 		() => useDesktopStore.getState(),
@@ -231,7 +237,7 @@ export function DesktopShortcut({
 			className={cn(
 				"absolute",
 				"touch-none select-none",
-				"w-full h-full justify-center items-center space-y-0.5 cursor-pointer",
+				"w-full h-full justify-center items-center space-y-1.5 cursor-pointer",
 			)}
 			style={{
 				top: desktopShortcut.y,
@@ -251,8 +257,8 @@ export function DesktopShortcut({
 			<Image
 				src={iconSrc}
 				alt={id}
-				width={DESKTOP_SHORTCUT_ICON_SIZE}
-				height={DESKTOP_SHORTCUT_ICON_SIZE}
+				width={desktopIconSize}
+				height={desktopIconSize}
 			/>
 			<Flex
 				className={cn(

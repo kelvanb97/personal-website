@@ -1,7 +1,15 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-export type TDesktopItemId = "resume.pdf" | "resume-2.pdf"
+export type TDesktopItemId =
+	| "performance"
+	| "profile-pic.jpg"
+	| "about"
+	| "resume.pdf"
+	| "contact"
+	| "projects"
+	| "README.md"
+	| "todos.txt"
 
 export type TShortcutState = {
 	x: number
@@ -54,8 +62,9 @@ type TDesktopActions = {
 
 const initialState: TDesktopState = {
 	items: {
-		"resume.pdf": {
-			id: "resume.pdf",
+		// column 1
+		"profile-pic.jpg": {
+			id: "profile-pic.jpg",
 			shortcut: {
 				x: 50,
 				y: 50,
@@ -71,11 +80,11 @@ const initialState: TDesktopState = {
 				zIndex: 1,
 			},
 		},
-		"resume-2.pdf": {
-			id: "resume-2.pdf",
+		performance: {
+			id: "performance",
 			shortcut: {
 				x: 50,
-				y: 50,
+				y: 140,
 			},
 			window: {
 				isOpen: false,
@@ -83,6 +92,109 @@ const initialState: TDesktopState = {
 				isMaximized: false,
 				x: 100,
 				y: 100,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		about: {
+			id: "about",
+			shortcut: {
+				x: 50,
+				y: 230,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 120,
+				y: 120,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		contact: {
+			id: "contact",
+			shortcut: {
+				x: 50,
+				y: 320,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 140,
+				y: 140,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		"resume.pdf": {
+			id: "resume.pdf",
+			shortcut: {
+				x: 50,
+				y: 410,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 100,
+				y: 100,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		//column 2
+		projects: {
+			id: "projects",
+			shortcut: {
+				x: 150,
+				y: 50,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 160,
+				y: 160,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		"README.md": {
+			id: "README.md",
+			shortcut: {
+				x: 150,
+				y: 140,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 180,
+				y: 180,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		"todos.txt": {
+			id: "todos.txt",
+			shortcut: {
+				x: 150,
+				y: 230,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 200,
+				y: 200,
 				width: 800,
 				height: 600,
 				zIndex: 1,

@@ -339,13 +339,8 @@ export function DesktopWindow({
 	const isClosing = anim === "closing"
 
 	return (
-		<YStack
-			className={cn(
-				"absolute rounded-lg border border-border bg-card overflow-hidden",
-				isTransitioning && "window-transition",
-				isMinimizing && "window-minimize",
-				isClosing && "window-exit",
-			)}
+		<Flex
+			className="absolute"
 			style={{
 				top: visualRect.y,
 				left: visualRect.x,
@@ -353,104 +348,115 @@ export function DesktopWindow({
 				height: visualRect.height,
 				zIndex: desktopWindow.zIndex,
 			}}
-			onClick={handleFocus}
-			onTransitionEnd={(e) => {
-				if (!isTransitioning) return
-				if (transitionDoneRef.current) return
-				if (e.propertyName !== "width" && e.propertyName !== "height")
-					return
-
-				transitionDoneRef.current = true
-
-				store.toggleMaximize(id)
-				setAnim(null)
-			}}
-			onAnimationEnd={() => {
-				if (isMinimizing) {
-					store.toggleMinimize(id)
-					setAnim(null)
-				}
-				if (isClosing) {
-					store.closeWindow(id)
-					setAnim(null)
-				}
-			}}
 		>
-			<TitleBar
-				id={id}
-				isWindowActive={isWindowActive}
-				isWindowMaximized={desktopWindow.isMaximized}
-				onToggleMaximize={startMaximizeToggle}
-				onMinimize={startMinimize}
-				onClose={startClose}
-				onPointerDown={onPointerDown}
-				onPointerMove={onPointerMove}
-				endDrag={endDrag}
-			/>
-			{children}
-			{!desktopWindow.isMaximized && anim === null && (
-				<>
-					{/* right edge */}
-					<div
-						className="absolute top-0 right-0 h-full z-10 touch-none"
-						style={{ width: EDGE, cursor: "ew-resize" }}
-						onPointerDown={startResize("right")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* left edge */}
-					<div
-						className="absolute top-0 left-0 h-full z-10 touch-none"
-						style={{ width: EDGE, cursor: "ew-resize" }}
-						onPointerDown={startResize("left")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* bottom edge */}
-					<div
-						className="absolute left-0 bottom-0 w-full z-10 touch-none"
-						style={{ height: EDGE, cursor: "ns-resize" }}
-						onPointerDown={startResize("bottom")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* bottom right */}
-					<div
-						className="absolute bottom-0 right-0 z-20 touch-none"
-						style={{
-							width: CORNER,
-							height: CORNER,
-							cursor: "nwse-resize",
-						}}
-						onPointerDown={startResize("bottom-right")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* bottom left */}
-					<div
-						className="absolute bottom-0 left-0 z-20 touch-none"
-						style={{
-							width: CORNER,
-							height: CORNER,
-							cursor: "nesw-resize",
-						}}
-						onPointerDown={startResize("bottom-left")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-				</>
-			)}
-		</YStack>
+			<YStack
+				className={cn(
+					"w-full h-full",
+					"rounded-lg border border-border bg-card overflow-hidden",
+					isTransitioning && "window-transition",
+					isMinimizing && "window-minimize",
+					isClosing && "window-exit",
+				)}
+				onClick={handleFocus}
+				onTransitionEnd={(e) => {
+					if (!isTransitioning) return
+					if (transitionDoneRef.current) return
+					if (
+						e.propertyName !== "width" &&
+						e.propertyName !== "height"
+					)
+						return
+					transitionDoneRef.current = true
+					store.toggleMaximize(id)
+					setAnim(null)
+				}}
+				onAnimationEnd={() => {
+					if (isMinimizing) {
+						store.toggleMinimize(id)
+						setAnim(null)
+					}
+					if (isClosing) {
+						store.closeWindow(id)
+						setAnim(null)
+					}
+				}}
+			>
+				<TitleBar
+					id={id}
+					isWindowActive={isWindowActive}
+					isWindowMaximized={desktopWindow.isMaximized}
+					onToggleMaximize={startMaximizeToggle}
+					onMinimize={startMinimize}
+					onClose={startClose}
+					onPointerDown={onPointerDown}
+					onPointerMove={onPointerMove}
+					endDrag={endDrag}
+				/>
+				{children}
+				{!desktopWindow.isMaximized && anim === null && (
+					<>
+						{/* right edge */}
+						<div
+							className="absolute top-0 right-0 h-full z-10 touch-none translate-x-1/2"
+							style={{ width: EDGE, cursor: "ew-resize" }}
+							onPointerDown={startResize("right")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* left edge */}
+						<div
+							className="absolute top-0 left-0 h-full z-10 touch-none -translate-x-1/2"
+							style={{ width: EDGE, cursor: "ew-resize" }}
+							onPointerDown={startResize("left")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* bottom edge */}
+						<div
+							className="absolute left-0 bottom-0 w-full z-10 touch-none translate-y-1/2"
+							style={{ height: EDGE, cursor: "ns-resize" }}
+							onPointerDown={startResize("bottom")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* bottom right */}
+						<div
+							className="absolute bottom-0 right-0 z-20 touch-none translate-y-1/2 translate-x-1/2"
+							style={{
+								width: CORNER,
+								height: CORNER,
+								cursor: "nwse-resize",
+							}}
+							onPointerDown={startResize("bottom-right")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* bottom left */}
+						<div
+							className="absolute bottom-0 left-0 z-20 touch-none"
+							style={{
+								width: CORNER,
+								height: CORNER,
+								cursor: "nesw-resize",
+							}}
+							onPointerDown={startResize("bottom-left")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+					</>
+				)}
+			</YStack>
+		</Flex>
 	)
 }
 
