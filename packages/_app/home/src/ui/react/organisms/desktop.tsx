@@ -1,13 +1,10 @@
-import { useDesktopStore } from "#desktop-store"
+import { useDesktopStore } from "#store/desktop-store"
 import { DesktopItem } from "./desktop-item/desktop-item"
 import { ProfilePic } from "./window-content/profile-pic"
 import { Resume } from "./window-content/resume"
+import { Todos } from "./window-content/todos"
 
-interface IDesktopProps {
-	viewportSize: { width: number; height: number }
-}
-
-export function Desktop({ viewportSize }: IDesktopProps) {
+export function Desktop() {
 	const { items: desktopItems, activeWindowId } = useDesktopStore()
 
 	return (
@@ -15,7 +12,6 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["profile-pic.jpg"]}
 				iconSrc="/profile-pic.jpg"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "profile-pic.jpg"}
 			>
 				<ProfilePic />
@@ -23,7 +19,6 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["performance"]}
 				iconSrc="/activity-monitor.png"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "performance"}
 			>
 				<Resume />
@@ -31,7 +26,6 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["about"]}
 				iconSrc="/pdf-file-icon.png"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "about"}
 			>
 				<Resume />
@@ -39,7 +33,6 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["resume.pdf"]}
 				iconSrc="/pdf-file-icon.png"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "resume.pdf"}
 			>
 				<Resume />
@@ -47,7 +40,6 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["contact"]}
 				iconSrc="/pdf-file-icon.png"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "contact"}
 			>
 				<Resume />
@@ -55,7 +47,6 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["projects"]}
 				iconSrc="/pdf-file-icon.png"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "projects"}
 			>
 				<Resume />
@@ -63,18 +54,16 @@ export function Desktop({ viewportSize }: IDesktopProps) {
 			<DesktopItem
 				desktopItem={desktopItems["README.md"]}
 				iconSrc="/pdf-file-icon.png"
-				viewportSize={viewportSize}
 				isWindowActive={activeWindowId === "README.md"}
 			>
 				<Resume />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["todos.txt"]}
-				iconSrc="/pdf-file-icon.png"
-				viewportSize={viewportSize}
+				iconSrc="/notes.png"
 				isWindowActive={activeWindowId === "todos.txt"}
 			>
-				<Resume />
+				<Todos />
 			</DesktopItem>
 		</>
 	)

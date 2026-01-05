@@ -1,5 +1,5 @@
 import { Flex } from "@kelvan-design/ui/primitives/flex"
-import { useDesktopItem } from "#desktop-store"
+import { useDesktopItem } from "#store/desktop-store"
 import Image from "next/image"
 import { useMemo } from "react"
 

@@ -41,12 +41,10 @@ type TDesktopState = {
 
 type TDesktopActions = {
 	setShortcutPos: (id: TDesktopItemId, pos: Partial<TShortcutState>) => void
-
 	openWindow: (id: TDesktopItemId) => void
 	closeWindow: (id: TDesktopItemId) => void
 	toggleMinimize: (id: TDesktopItemId) => void
 	toggleMaximize: (id: TDesktopItemId) => void
-
 	setWindowPos: (
 		id: TDesktopItemId,
 		pos: Partial<Pick<TWindowState, "x" | "y">>,
@@ -55,9 +53,9 @@ type TDesktopActions = {
 		id: TDesktopItemId,
 		size: Partial<Pick<TWindowState, "width" | "height">>,
 	) => void
-
 	bringToFront: (id: TDesktopItemId) => void
 	setActiveWindow: (id: TDesktopItemId) => void
+	reset: () => void
 }
 
 const initialState: TDesktopState = {
@@ -355,6 +353,7 @@ export const useDesktopStore = create<TDesktopState & TDesktopActions>()(
 						},
 					}
 				}),
+			reset: () => set(() => ({ ...initialState })),
 		}),
 		{
 			name: "desktop-store",

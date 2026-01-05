@@ -9,11 +9,12 @@ import {
 import { Flex } from "@kelvan-design/ui/primitives/flex"
 import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
+import { useViewportContext } from "#context/viewport-context"
 import {
 	useDesktopStore,
 	type TDesktopItem,
 	type TDesktopItemId,
-} from "#desktop-store"
+} from "#store/desktop-store"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 const MIN_W = 360
@@ -41,7 +42,6 @@ const rectFromStore = (
 interface IDesktopWindowProps {
 	id: TDesktopItemId
 	desktopWindow: TDesktopItem["window"]
-	viewportSize: { width: number; height: number }
 	isWindowActive: boolean
 	children: React.ReactNode
 }
@@ -49,14 +49,14 @@ interface IDesktopWindowProps {
 export function DesktopWindow({
 	id,
 	desktopWindow,
-	viewportSize,
 	isWindowActive,
 	children,
 }: IDesktopWindowProps) {
+	const { viewport } = useViewportContext()
 	const store = useMemo(() => useDesktopStore.getState(), [])
 	const [anim, setAnim] = useState<TAnim>(null)
 	const [visualRect, setVisualRect] = useState<TRect>(() =>
-		rectFromStore(desktopWindow, viewportSize),
+		rectFromStore(desktopWindow, viewport),
 	)
 
 	const resizeRef = useRef<{
@@ -76,6 +76,8 @@ export function DesktopWindow({
 		startClientY: number
 		startX: number
 		startY: number
+		w: number
+		h: number
 		currentX: number
 		currentY: number
 		raf: number | null
@@ -92,8 +94,8 @@ export function DesktopWindow({
 
 	const computeResizeRect = useCallback(
 		(dir: TResizeDir, start: TRect, dx: number, dy: number): TRect => {
-			const maxX = viewportSize.width
-			const maxY = viewportSize.height
+			const maxX = viewport.width
+			const maxY = viewport.height
 
 			// start with original
 			let x = start.x
@@ -127,7 +129,7 @@ export function DesktopWindow({
 
 			return { x, y, width: w, height: h }
 		},
-		[viewportSize.width, viewportSize.height],
+		[viewport.width, viewport.height],
 	)
 
 	const startResize = useCallback(
@@ -202,6 +204,9 @@ export function DesktopWindow({
 
 	const onPointerDown = useCallback(
 		(e: React.PointerEvent) => {
+			if (anim) return
+			if (desktopWindow.isMaximized) return
+
 			e.preventDefault()
 			e.stopPropagation()
 			e.currentTarget.setPointerCapture(e.pointerId)
@@ -212,35 +217,49 @@ export function DesktopWindow({
 				startClientY: e.clientY,
 				startX: desktopWindow.x,
 				startY: desktopWindow.y,
+				w: visualRect.width,
+				h: visualRect.height,
 				currentX: desktopWindow.x,
 				currentY: desktopWindow.y,
 				raf: null,
 			}
 		},
-		[desktopWindow.x, desktopWindow.y],
+		[
+			anim,
+			desktopWindow.isMaximized,
+			desktopWindow.x,
+			desktopWindow.y,
+			visualRect.width,
+			visualRect.height,
+		],
 	)
 
 	const onPointerMove = useCallback(
 		(e: React.PointerEvent) => {
 			e.preventDefault()
 			e.stopPropagation()
+
 			const d = dragRef.current
 			if (!d || e.pointerId !== d.pointerId) return
 
 			const dx = e.clientX - d.startClientX
 			const dy = e.clientY - d.startClientY
 
-			const nextX = d.startX + dx
-			const nextY = d.startY + dy
+			const maxX = Math.max(0, viewport.width - d.w)
+			const maxY = Math.max(0, viewport.height - d.h)
+
+			const nextX = clamp(d.startX + dx, 0, maxX)
+			const nextY = clamp(d.startY + dy, 0, maxY)
 
 			if (d.raf) cancelAnimationFrame(d.raf)
 			d.raf = requestAnimationFrame(() => {
 				d.currentX = nextX
 				d.currentY = nextY
 				store.setWindowPos(id, { x: nextX, y: nextY })
+				setVisualRect((r) => ({ ...r, x: nextX, y: nextY }))
 			})
 		},
-		[id, store],
+		[id, store, viewport.width, viewport.height],
 	)
 
 	const endDrag = useCallback((e: React.PointerEvent) => {
@@ -263,8 +282,8 @@ export function DesktopWindow({
 	// NOTE: keep visual rect in sync with store when we're NOT animating
 	useEffect(() => {
 		if (anim) return
-		setVisualRect(rectFromStore(desktopWindow, viewportSize))
-	}, [anim, desktopWindow, viewportSize])
+		setVisualRect(rectFromStore(desktopWindow, viewport))
+	}, [anim, desktopWindow, viewport])
 
 	const handleFocus = useCallback(
 		(e: React.MouseEvent) => {
@@ -293,8 +312,8 @@ export function DesktopWindow({
 						? {
 								x: 0,
 								y: 0,
-								width: viewportSize.width,
-								height: viewportSize.height,
+								width: viewport.width,
+								height: viewport.height,
 							}
 						: {
 								x: desktopWindow.x,
@@ -311,8 +330,8 @@ export function DesktopWindow({
 			desktopWindow.y,
 			desktopWindow.width,
 			desktopWindow.height,
-			viewportSize.width,
-			viewportSize.height,
+			viewport.width,
+			viewport.height,
 		],
 	)
 
