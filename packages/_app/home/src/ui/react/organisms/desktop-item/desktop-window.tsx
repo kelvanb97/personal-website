@@ -524,7 +524,7 @@ function TitleBar({
 			)}
 		>
 			<Flex
-				className="flex-1 px-3 py-2"
+				className="flex-1 px-3"
 				onPointerDown={onPointerDown}
 				onPointerMove={onPointerMove}
 				onPointerUp={endDrag}
@@ -534,14 +534,17 @@ function TitleBar({
 				<TextBody
 					size="sm"
 					variant="accent-foreground"
-					className="font-bold"
+					className="font-bold py-2"
 				>
 					{id}
 				</TextBody>
 			</Flex>
 			{isWindowActive ? (
 				<XStack
-					className="space-x-2.5 px-3 py-2 cursor-default"
+					className="space-x-2.5 pl-6 pr-3 h-full items-center cursor-default bg-card border-border"
+					style={{
+						clipPath: "polygon(0 0, 100% 0, 100% 100%, 16px 100%)",
+					}}
 					onMouseEnter={onMouseEnterControls}
 					onMouseLeave={onMouseLeaveControls}
 				>
