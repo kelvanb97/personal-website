@@ -9,7 +9,7 @@ export type TDesktopItemId =
 	| "contact"
 	| "projects"
 	| "README.md"
-	| "todos.txt"
+	| "todos"
 
 export type TShortcutState = {
 	x: number
@@ -82,7 +82,7 @@ const initialState: TDesktopState = {
 			id: "performance",
 			shortcut: {
 				x: 50,
-				y: 140,
+				y: 150,
 			},
 			window: {
 				isOpen: false,
@@ -99,7 +99,7 @@ const initialState: TDesktopState = {
 			id: "about",
 			shortcut: {
 				x: 50,
-				y: 230,
+				y: 250,
 			},
 			window: {
 				isOpen: false,
@@ -116,7 +116,7 @@ const initialState: TDesktopState = {
 			id: "contact",
 			shortcut: {
 				x: 50,
-				y: 320,
+				y: 350,
 			},
 			window: {
 				isOpen: false,
@@ -133,7 +133,7 @@ const initialState: TDesktopState = {
 			id: "resume.pdf",
 			shortcut: {
 				x: 50,
-				y: 410,
+				y: 450,
 			},
 			window: {
 				isOpen: false,
@@ -150,7 +150,7 @@ const initialState: TDesktopState = {
 		projects: {
 			id: "projects",
 			shortcut: {
-				x: 150,
+				x: 200,
 				y: 50,
 			},
 			window: {
@@ -167,8 +167,8 @@ const initialState: TDesktopState = {
 		"README.md": {
 			id: "README.md",
 			shortcut: {
-				x: 150,
-				y: 140,
+				x: 200,
+				y: 150,
 			},
 			window: {
 				isOpen: false,
@@ -181,11 +181,11 @@ const initialState: TDesktopState = {
 				zIndex: 1,
 			},
 		},
-		"todos.txt": {
-			id: "todos.txt",
+		todos: {
+			id: "todos",
 			shortcut: {
-				x: 150,
-				y: 230,
+				x: 200,
+				y: 250,
 			},
 			window: {
 				isOpen: false,

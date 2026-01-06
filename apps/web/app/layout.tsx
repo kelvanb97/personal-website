@@ -3,9 +3,8 @@ import "@kelvan-design/ui/global.css"
 import { Providers } from "../ui/react/providers"
 
 export const metadata: Metadata = {
-	title: "kelvan",
-	description:
-		"Turn outbound lists into booked meetings with real personalization.",
+	title: "Kelvan Brandt",
+	description: "Welcome to my personal website!",
 	icons: {
 		icon: "/favicon.ico",
 		shortcut: "/favicon.ico",

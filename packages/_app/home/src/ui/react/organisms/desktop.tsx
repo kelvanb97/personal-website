@@ -13,6 +13,7 @@ export function Desktop() {
 				desktopItem={desktopItems["profile-pic.jpg"]}
 				iconSrc="/profile-pic.jpg"
 				isWindowActive={activeWindowId === "profile-pic.jpg"}
+				imageContainerClassName="border-accent-foreground border-2"
 			>
 				<ProfilePic />
 			</DesktopItem>
@@ -53,15 +54,15 @@ export function Desktop() {
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["README.md"]}
-				iconSrc="/pdf-file-icon.png"
+				iconSrc="/md-icon.png"
 				isWindowActive={activeWindowId === "README.md"}
 			>
 				<Resume />
 			</DesktopItem>
 			<DesktopItem
-				desktopItem={desktopItems["todos.txt"]}
+				desktopItem={desktopItems["todos"]}
 				iconSrc="/notes.png"
-				isWindowActive={activeWindowId === "todos.txt"}
+				isWindowActive={activeWindowId === "todos"}
 			>
 				<Todos />
 			</DesktopItem>

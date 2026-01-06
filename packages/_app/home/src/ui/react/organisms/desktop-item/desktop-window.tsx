@@ -359,7 +359,13 @@ export function DesktopWindow({
 
 	return (
 		<Flex
-			className="absolute"
+			className={cn(
+				"absolute",
+				"rounded-lg border border-border bg-card overflow-hidden",
+				isTransitioning && "window-transition",
+				isMinimizing && "window-minimize",
+				isClosing && "window-exit",
+			)}
 			style={{
 				top: visualRect.y,
 				left: visualRect.x,
@@ -367,39 +373,27 @@ export function DesktopWindow({
 				height: visualRect.height,
 				zIndex: desktopWindow.zIndex,
 			}}
-		>
-			<YStack
-				className={cn(
-					"w-full h-full",
-					"rounded-lg border border-border bg-card overflow-hidden",
-					isTransitioning && "window-transition",
-					isMinimizing && "window-minimize",
-					isClosing && "window-exit",
-				)}
-				onClick={handleFocus}
-				onTransitionEnd={(e) => {
-					if (!isTransitioning) return
-					if (transitionDoneRef.current) return
-					if (
-						e.propertyName !== "width" &&
-						e.propertyName !== "height"
-					)
-						return
-					transitionDoneRef.current = true
-					store.toggleMaximize(id)
+			onTransitionEnd={(e) => {
+				if (!isTransitioning) return
+				if (transitionDoneRef.current) return
+				if (e.propertyName !== "width" && e.propertyName !== "height")
+					return
+				transitionDoneRef.current = true
+				store.toggleMaximize(id)
+				setAnim(null)
+			}}
+			onAnimationEnd={() => {
+				if (isMinimizing) {
+					store.toggleMinimize(id)
 					setAnim(null)
-				}}
-				onAnimationEnd={() => {
-					if (isMinimizing) {
-						store.toggleMinimize(id)
-						setAnim(null)
-					}
-					if (isClosing) {
-						store.closeWindow(id)
-						setAnim(null)
-					}
-				}}
-			>
+				}
+				if (isClosing) {
+					store.closeWindow(id)
+					setAnim(null)
+				}
+			}}
+		>
+			<YStack onClick={handleFocus} className="w-full h-full relative">
 				<TitleBar
 					id={id}
 					isWindowActive={isWindowActive}
@@ -513,6 +507,11 @@ function TitleBar({
 		[],
 	)
 
+	const showControlsHover = useMemo(
+		() => isWindowActive || isControlsHovered,
+		[isWindowActive, isControlsHovered],
+	)
+
 	return (
 		<XStack
 			className={cn(
@@ -539,51 +538,57 @@ function TitleBar({
 					{id}
 				</TextBody>
 			</Flex>
-			{isWindowActive ? (
-				<XStack
-					className="space-x-2.5 pl-6 pr-3 h-full items-center cursor-default bg-card border-border"
-					style={{
-						clipPath: "polygon(0 0, 100% 0, 100% 100%, 16px 100%)",
-					}}
-					onMouseEnter={onMouseEnterControls}
-					onMouseLeave={onMouseLeaveControls}
+			<XStack
+				className={cn(
+					"space-x-2.5 pl-6 pr-3 h-full items-center cursor-default border-border",
+					{ "bg-card": showControlsHover },
+				)}
+				style={{
+					clipPath: showControlsHover
+						? "polygon(0 0, 100% 0, 100% 100%, 16px 100%)"
+						: "",
+				}}
+				onMouseEnter={onMouseEnterControls}
+				onMouseLeave={onMouseLeaveControls}
+			>
+				<Flex
+					className={cn(
+						"w-3.5 h-3.5 rounded-full items-center justify-center cursor-pointer",
+						showControlsHover ? "bg-green-500" : "bg-gray-500",
+					)}
+					onClick={onToggleMaximize}
 				>
-					<Flex
-						className="w-3.5 h-3.5 bg-green-500 rounded-full items-center justify-center"
-						onClick={onToggleMaximize}
-					>
-						{isControlsHovered ? (
-							isWindowMaximized ? (
-								<MinimizeIcon className="w-2.5 h-2.5 text-black/90" />
-							) : (
-								<MaximizeIcon className="w-2.5 h-2.5 text-black/90" />
-							)
-						) : null}
-					</Flex>
-					<Flex
-						className="w-3.5 h-3.5 bg-yellow-500 rounded-full items-center justify-center"
-						onClick={onMinimize}
-					>
-						{isControlsHovered && (
-							<MinusIcon className="w-2.5 h-2.5 text-black/90" />
-						)}
-					</Flex>
-					<Flex
-						className="w-3.5 h-3.5 bg-red-400 rounded-full items-center justify-center"
-						onClick={onClose}
-					>
-						{isControlsHovered && (
-							<XIcon className="w-2.5 h-2.5 text-black/90" />
-						)}
-					</Flex>
-				</XStack>
-			) : (
-				<XStack className="space-x-2.5 px-3 py-2">
-					<Flex className="w-3.5 h-3.5 bg-gray-500 rounded-full" />
-					<Flex className="w-3.5 h-3.5 bg-gray-500 rounded-full" />
-					<Flex className="w-3.5 h-3.5 bg-gray-500 rounded-full" />
-				</XStack>
-			)}
+					{isControlsHovered ? (
+						isWindowMaximized ? (
+							<MinimizeIcon className="w-2.5 h-2.5 text-black/90" />
+						) : (
+							<MaximizeIcon className="w-2.5 h-2.5 text-black/90" />
+						)
+					) : null}
+				</Flex>
+				<Flex
+					className={cn(
+						"w-3.5 h-3.5 rounded-full items-center justify-center cursor-pointer",
+						showControlsHover ? "bg-yellow-500" : "bg-gray-500",
+					)}
+					onClick={onMinimize}
+				>
+					{isControlsHovered && (
+						<MinusIcon className="w-2.5 h-2.5 text-black/90" />
+					)}
+				</Flex>
+				<Flex
+					className={cn(
+						"w-3.5 h-3.5 rounded-full items-center justify-center cursor-pointer",
+						showControlsHover ? "bg-red-400" : "bg-gray-500",
+					)}
+					onClick={onClose}
+				>
+					{isControlsHovered && (
+						<XIcon className="w-2.5 h-2.5 text-black/90" />
+					)}
+				</Flex>
+			</XStack>
 		</XStack>
 	)
 }

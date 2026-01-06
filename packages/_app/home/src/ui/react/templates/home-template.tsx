@@ -43,7 +43,7 @@ function GridBackground() {
 
 function LogoSection() {
 	return (
-		<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+		<div className="absolute pointer-events-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 			<Logo width={500} />
 		</div>
 	)

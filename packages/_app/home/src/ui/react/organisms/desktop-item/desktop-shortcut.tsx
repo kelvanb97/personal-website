@@ -26,11 +26,12 @@ const rectsOverlap = (
 	b: { x: number; y: number; w: number; h: number },
 ) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
 
-interface IDesktopItemProps {
+interface IDesktopShortcutProps {
 	id: TDesktopItemId
 	desktopShortcut: TDesktopItem["shortcut"]
 	iconSrc: string
 	desktopIconCoefficient?: number
+	imageContainerClassName: string | undefined
 }
 
 export function DesktopShortcut({
@@ -38,7 +39,8 @@ export function DesktopShortcut({
 	desktopShortcut,
 	iconSrc,
 	desktopIconCoefficient = 0.4,
-}: IDesktopItemProps) {
+	imageContainerClassName,
+}: IDesktopShortcutProps) {
 	const { viewport } = useViewportContext()
 	const animRef = useRef<number | null>(null)
 
@@ -242,12 +244,16 @@ export function DesktopShortcut({
 			onLostPointerCapture={endDrag}
 			onDoubleClick={handleDoubleClick}
 		>
-			<Image
-				src={iconSrc}
-				alt={id}
-				width={desktopIconSize}
-				height={desktopIconSize}
-			/>
+			{iconSrc && (
+				<Flex className={imageContainerClassName}>
+					<Image
+						src={iconSrc}
+						alt={id}
+						width={desktopIconSize}
+						height={desktopIconSize}
+					/>
+				</Flex>
+			)}
 			<Flex
 				className={cn(
 					"rounded-xs px-1",

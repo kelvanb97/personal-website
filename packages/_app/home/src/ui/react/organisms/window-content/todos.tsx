@@ -1,20 +1,32 @@
+import { cn } from "@kelvan-design/ui/cn"
 import { Checkbox } from "@kelvan-design/ui/library/checkbox"
 import { TextBody } from "@kelvan-design/ui/library/text"
 import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { useState } from "react"
 
+const TODOS = [
+	"update desktop shortcut positioning from cartesian to viewport % relative",
+	"update reset logic to detect for collisions instead of resetting every time the viewport changes",
+	"allow windows to go partially offscreen instead of not allowing any part to go offscreen",
+	"implement window snapping to edges and other windows",
+	"implement window maximize/restore functionality",
+	"improve mobile experience",
+	"add more to the about section",
+	"set window to active when a drag starts",
+]
+
 export function Todos() {
 	return (
-		<YStack className="p-3 overflow-auto h-full w-full gap-3">
-			<LabeledCheckbox label="Learn React" checked={false} />
-			<LabeledCheckbox label="Build a personal website" checked={false} />
-			<LabeledCheckbox label="Write blog posts" checked={false} />
-			<LabeledCheckbox
-				label="Contribute to open source"
-				checked={false}
-			/>
-			<LabeledCheckbox label="Explore new technologies" checked={false} />
+		<YStack className="p-3 overflow-auto h-full w-full gap-1">
+			{TODOS.map((todo, index) => (
+				<LabeledCheckbox
+					key={index}
+					label={todo}
+					checked={false}
+					isFirst={index === 0}
+				/>
+			))}
 		</YStack>
 	)
 }
@@ -22,19 +34,26 @@ export function Todos() {
 interface ILabeledCheckboxProps {
 	label: string
 	checked: boolean
+	isFirst: boolean
 }
 
-function LabeledCheckbox({ label, checked }: ILabeledCheckboxProps) {
+function LabeledCheckbox({ label, checked, isFirst }: ILabeledCheckboxProps) {
 	const [isChecked, setIsChecked] = useState(checked)
 
 	return (
-		<XStack className="gap-x-1 items-center">
+		<XStack
+			className={cn("gap-x-2 items-center py-1", {
+				"border-t-1": !isFirst,
+			})}
+		>
 			<Checkbox
-				className="cursor-pointer hover:opacity-80"
+				className="cursor-pointer hover:filter hover:brightness-120"
 				checked={isChecked}
 				onCheckedChange={() => setIsChecked((prev) => !prev)}
 			/>
-			<TextBody variant="accent-foreground">{label}</TextBody>
+			<TextBody size="sm" variant="accent-foreground">
+				{label}
+			</TextBody>
 		</XStack>
 	)
 }

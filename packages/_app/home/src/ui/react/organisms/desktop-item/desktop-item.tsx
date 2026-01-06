@@ -9,17 +9,25 @@ interface IDesktopItemProps {
 	desktopItem: TDesktopItem
 	iconSrc: string
 	isWindowActive: boolean
+	imageContainerClassName?: string
 	children: React.ReactNode
 }
 
 export const DesktopItem = memo(
-	({ desktopItem, iconSrc, isWindowActive, children }: IDesktopItemProps) => {
+	({
+		desktopItem,
+		iconSrc,
+		isWindowActive,
+		imageContainerClassName,
+		children,
+	}: IDesktopItemProps) => {
 		return (
 			<>
 				<DesktopShortcut
 					id={desktopItem.id}
 					desktopShortcut={desktopItem.shortcut}
 					iconSrc={iconSrc}
+					imageContainerClassName={imageContainerClassName}
 				/>
 				<DesktopWindow
 					id={desktopItem.id}
