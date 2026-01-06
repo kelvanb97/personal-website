@@ -33,6 +33,8 @@ export const ViewportProvider = ({
 			setViewport((s) =>
 				s.width === w && s.height === h ? s : { width: w, height: h },
 			)
+
+			// TODO: check the reset, not a hard reset
 			useDesktopStore.getState().reset()
 		}
 

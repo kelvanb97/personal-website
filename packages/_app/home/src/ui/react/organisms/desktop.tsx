@@ -26,7 +26,7 @@ export function Desktop() {
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["about"]}
-				iconSrc="/pdf-file-icon.png"
+				iconSrc="/k-square.png"
 				isWindowActive={activeWindowId === "about"}
 			>
 				<Resume />
@@ -40,14 +40,14 @@ export function Desktop() {
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["contact"]}
-				iconSrc="/pdf-file-icon.png"
+				iconSrc="/email-icon.png"
 				isWindowActive={activeWindowId === "contact"}
 			>
 				<Resume />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["projects"]}
-				iconSrc="/pdf-file-icon.png"
+				iconSrc="/folder.png"
 				isWindowActive={activeWindowId === "projects"}
 			>
 				<Resume />
