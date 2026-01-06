@@ -21,6 +21,7 @@ const MIN_W = 360
 const MIN_H = 240
 const EDGE = 8
 const CORNER = 14
+const SAFE = 36
 
 type TResizeDir = "right" | "left" | "bottom" | "bottom-right" | "bottom-left"
 
@@ -245,11 +246,13 @@ export function DesktopWindow({
 			const dx = e.clientX - d.startClientX
 			const dy = e.clientY - d.startClientY
 
-			const maxX = Math.max(0, viewport.width - d.w)
-			const maxY = Math.max(0, viewport.height - d.h)
+			const minX = 0
+			const minY = 0
+			const maxX = viewport.width - SAFE
+			const maxY = viewport.height - SAFE
 
-			const nextX = clamp(d.startX + dx, 0, maxX)
-			const nextY = clamp(d.startY + dy, 0, maxY)
+			const nextX = clamp(d.startX + dx, minX, maxX)
+			const nextY = clamp(d.startY + dy, minY, maxY)
 
 			if (d.raf) cancelAnimationFrame(d.raf)
 			d.raf = requestAnimationFrame(() => {
