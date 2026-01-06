@@ -16,6 +16,7 @@
 		"lint": "turbo run lint",
 		"prepare": "husky",
 		"purge": "rm -rf node_modules; find . -type d -path '*/*/node_modules' -print0 | xargs -0 rm -rf",
+		"destroy-cache": "rm -rf .turbo; find . -type d -path '*/*/.turbo' -print0 | xargs -0 rm -rf; rm -rf .next; find . -type d -path '*/*/.next' -print0 | xargs -0 rm -rf",
 		"test": "turbo run test"
 	},
 	"dependencies": {
@@ -31,7 +32,7 @@
 		"lint-staged": "15.5.1",
 		"prettier": "3.5.3",
 		"syncpack": "13.0.3",
-		"turbo": "2.6.1",
+		"turbo": "2.7.3",
 		"typescript": "5.8.3"
 	}
 }

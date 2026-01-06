@@ -9,17 +9,19 @@ import {
 import { Flex } from "@kelvan-design/ui/primitives/flex"
 import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
+import { useViewportContext } from "#context/viewport-context"
 import {
 	useDesktopStore,
 	type TDesktopItem,
 	type TDesktopItemId,
-} from "#desktop-store"
+} from "#store/desktop-store"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 const MIN_W = 360
 const MIN_H = 240
 const EDGE = 8
 const CORNER = 14
+const SAFE = 36
 
 type TResizeDir = "right" | "left" | "bottom" | "bottom-right" | "bottom-left"
 
@@ -41,7 +43,6 @@ const rectFromStore = (
 interface IDesktopWindowProps {
 	id: TDesktopItemId
 	desktopWindow: TDesktopItem["window"]
-	viewportSize: { width: number; height: number }
 	isWindowActive: boolean
 	children: React.ReactNode
 }
@@ -49,14 +50,14 @@ interface IDesktopWindowProps {
 export function DesktopWindow({
 	id,
 	desktopWindow,
-	viewportSize,
 	isWindowActive,
 	children,
 }: IDesktopWindowProps) {
+	const { viewport } = useViewportContext()
 	const store = useMemo(() => useDesktopStore.getState(), [])
 	const [anim, setAnim] = useState<TAnim>(null)
 	const [visualRect, setVisualRect] = useState<TRect>(() =>
-		rectFromStore(desktopWindow, viewportSize),
+		rectFromStore(desktopWindow, viewport),
 	)
 
 	const resizeRef = useRef<{
@@ -76,6 +77,8 @@ export function DesktopWindow({
 		startClientY: number
 		startX: number
 		startY: number
+		w: number
+		h: number
 		currentX: number
 		currentY: number
 		raf: number | null
@@ -92,8 +95,8 @@ export function DesktopWindow({
 
 	const computeResizeRect = useCallback(
 		(dir: TResizeDir, start: TRect, dx: number, dy: number): TRect => {
-			const maxX = viewportSize.width
-			const maxY = viewportSize.height
+			const maxX = viewport.width
+			const maxY = viewport.height
 
 			// start with original
 			let x = start.x
@@ -127,7 +130,7 @@ export function DesktopWindow({
 
 			return { x, y, width: w, height: h }
 		},
-		[viewportSize.width, viewportSize.height],
+		[viewport.width, viewport.height],
 	)
 
 	const startResize = useCallback(
@@ -202,6 +205,9 @@ export function DesktopWindow({
 
 	const onPointerDown = useCallback(
 		(e: React.PointerEvent) => {
+			if (anim) return
+			if (desktopWindow.isMaximized) return
+
 			e.preventDefault()
 			e.stopPropagation()
 			e.currentTarget.setPointerCapture(e.pointerId)
@@ -212,35 +218,51 @@ export function DesktopWindow({
 				startClientY: e.clientY,
 				startX: desktopWindow.x,
 				startY: desktopWindow.y,
+				w: visualRect.width,
+				h: visualRect.height,
 				currentX: desktopWindow.x,
 				currentY: desktopWindow.y,
 				raf: null,
 			}
 		},
-		[desktopWindow.x, desktopWindow.y],
+		[
+			anim,
+			desktopWindow.isMaximized,
+			desktopWindow.x,
+			desktopWindow.y,
+			visualRect.width,
+			visualRect.height,
+		],
 	)
 
 	const onPointerMove = useCallback(
 		(e: React.PointerEvent) => {
 			e.preventDefault()
 			e.stopPropagation()
+
 			const d = dragRef.current
 			if (!d || e.pointerId !== d.pointerId) return
 
 			const dx = e.clientX - d.startClientX
 			const dy = e.clientY - d.startClientY
 
-			const nextX = d.startX + dx
-			const nextY = d.startY + dy
+			const minX = 0
+			const minY = 0
+			const maxX = viewport.width - SAFE
+			const maxY = viewport.height - SAFE
+
+			const nextX = clamp(d.startX + dx, minX, maxX)
+			const nextY = clamp(d.startY + dy, minY, maxY)
 
 			if (d.raf) cancelAnimationFrame(d.raf)
 			d.raf = requestAnimationFrame(() => {
 				d.currentX = nextX
 				d.currentY = nextY
 				store.setWindowPos(id, { x: nextX, y: nextY })
+				setVisualRect((r) => ({ ...r, x: nextX, y: nextY }))
 			})
 		},
-		[id, store],
+		[id, store, viewport.width, viewport.height],
 	)
 
 	const endDrag = useCallback((e: React.PointerEvent) => {
@@ -263,8 +285,8 @@ export function DesktopWindow({
 	// NOTE: keep visual rect in sync with store when we're NOT animating
 	useEffect(() => {
 		if (anim) return
-		setVisualRect(rectFromStore(desktopWindow, viewportSize))
-	}, [anim, desktopWindow, viewportSize])
+		setVisualRect(rectFromStore(desktopWindow, viewport))
+	}, [anim, desktopWindow, viewport])
 
 	const handleFocus = useCallback(
 		(e: React.MouseEvent) => {
@@ -293,8 +315,8 @@ export function DesktopWindow({
 						? {
 								x: 0,
 								y: 0,
-								width: viewportSize.width,
-								height: viewportSize.height,
+								width: viewport.width,
+								height: viewport.height,
 							}
 						: {
 								x: desktopWindow.x,
@@ -311,8 +333,8 @@ export function DesktopWindow({
 			desktopWindow.y,
 			desktopWindow.width,
 			desktopWindow.height,
-			viewportSize.width,
-			viewportSize.height,
+			viewport.width,
+			viewport.height,
 		],
 	)
 
@@ -339,9 +361,10 @@ export function DesktopWindow({
 	const isClosing = anim === "closing"
 
 	return (
-		<YStack
+		<Flex
 			className={cn(
-				"absolute rounded-lg border border-border bg-card overflow-hidden",
+				"absolute",
+				"rounded-lg border border-border bg-card overflow-hidden",
 				isTransitioning && "window-transition",
 				isMinimizing && "window-minimize",
 				isClosing && "window-exit",
@@ -353,15 +376,12 @@ export function DesktopWindow({
 				height: visualRect.height,
 				zIndex: desktopWindow.zIndex,
 			}}
-			onClick={handleFocus}
 			onTransitionEnd={(e) => {
 				if (!isTransitioning) return
 				if (transitionDoneRef.current) return
 				if (e.propertyName !== "width" && e.propertyName !== "height")
 					return
-
 				transitionDoneRef.current = true
-
 				store.toggleMaximize(id)
 				setAnim(null)
 			}}
@@ -376,81 +396,83 @@ export function DesktopWindow({
 				}
 			}}
 		>
-			<TitleBar
-				id={id}
-				isWindowActive={isWindowActive}
-				isWindowMaximized={desktopWindow.isMaximized}
-				onToggleMaximize={startMaximizeToggle}
-				onMinimize={startMinimize}
-				onClose={startClose}
-				onPointerDown={onPointerDown}
-				onPointerMove={onPointerMove}
-				endDrag={endDrag}
-			/>
-			{children}
-			{!desktopWindow.isMaximized && anim === null && (
-				<>
-					{/* right edge */}
-					<div
-						className="absolute top-0 right-0 h-full z-10 touch-none"
-						style={{ width: EDGE, cursor: "ew-resize" }}
-						onPointerDown={startResize("right")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* left edge */}
-					<div
-						className="absolute top-0 left-0 h-full z-10 touch-none"
-						style={{ width: EDGE, cursor: "ew-resize" }}
-						onPointerDown={startResize("left")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* bottom edge */}
-					<div
-						className="absolute left-0 bottom-0 w-full z-10 touch-none"
-						style={{ height: EDGE, cursor: "ns-resize" }}
-						onPointerDown={startResize("bottom")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* bottom right */}
-					<div
-						className="absolute bottom-0 right-0 z-20 touch-none"
-						style={{
-							width: CORNER,
-							height: CORNER,
-							cursor: "nwse-resize",
-						}}
-						onPointerDown={startResize("bottom-right")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-					{/* bottom left */}
-					<div
-						className="absolute bottom-0 left-0 z-20 touch-none"
-						style={{
-							width: CORNER,
-							height: CORNER,
-							cursor: "nesw-resize",
-						}}
-						onPointerDown={startResize("bottom-left")}
-						onPointerMove={onResizeMove}
-						onPointerUp={endResize}
-						onPointerCancel={endResize}
-						onLostPointerCapture={endResize}
-					/>
-				</>
-			)}
-		</YStack>
+			<YStack onClick={handleFocus} className="w-full h-full relative">
+				<TitleBar
+					id={id}
+					isWindowActive={isWindowActive}
+					isWindowMaximized={desktopWindow.isMaximized}
+					onToggleMaximize={startMaximizeToggle}
+					onMinimize={startMinimize}
+					onClose={startClose}
+					onPointerDown={onPointerDown}
+					onPointerMove={onPointerMove}
+					endDrag={endDrag}
+				/>
+				{children}
+				{!desktopWindow.isMaximized && anim === null && (
+					<>
+						{/* right edge */}
+						<div
+							className="absolute top-0 right-0 h-full z-10 touch-none translate-x-1/2"
+							style={{ width: EDGE, cursor: "ew-resize" }}
+							onPointerDown={startResize("right")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* left edge */}
+						<div
+							className="absolute top-0 left-0 h-full z-10 touch-none -translate-x-1/2"
+							style={{ width: EDGE, cursor: "ew-resize" }}
+							onPointerDown={startResize("left")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* bottom edge */}
+						<div
+							className="absolute left-0 bottom-0 w-full z-10 touch-none translate-y-1/2"
+							style={{ height: EDGE, cursor: "ns-resize" }}
+							onPointerDown={startResize("bottom")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* bottom right */}
+						<div
+							className="absolute bottom-0 right-0 z-20 touch-none translate-y-1/2 translate-x-1/2"
+							style={{
+								width: CORNER,
+								height: CORNER,
+								cursor: "nwse-resize",
+							}}
+							onPointerDown={startResize("bottom-right")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+						{/* bottom left */}
+						<div
+							className="absolute bottom-0 left-0 z-20 touch-none"
+							style={{
+								width: CORNER,
+								height: CORNER,
+								cursor: "nesw-resize",
+							}}
+							onPointerDown={startResize("bottom-left")}
+							onPointerMove={onResizeMove}
+							onPointerUp={endResize}
+							onPointerCancel={endResize}
+							onLostPointerCapture={endResize}
+						/>
+					</>
+				)}
+			</YStack>
+		</Flex>
 	)
 }
 
@@ -488,6 +510,11 @@ function TitleBar({
 		[],
 	)
 
+	const showControlsHover = useMemo(
+		() => isWindowActive || isControlsHovered,
+		[isWindowActive, isControlsHovered],
+	)
+
 	return (
 		<XStack
 			className={cn(
@@ -499,7 +526,7 @@ function TitleBar({
 			)}
 		>
 			<Flex
-				className="flex-1 px-3 py-2"
+				className="flex-1 px-3"
 				onPointerDown={onPointerDown}
 				onPointerMove={onPointerMove}
 				onPointerUp={endDrag}
@@ -509,53 +536,62 @@ function TitleBar({
 				<TextBody
 					size="sm"
 					variant="accent-foreground"
-					className="font-bold"
+					className="font-bold py-2"
 				>
 					{id}
 				</TextBody>
 			</Flex>
-			{isWindowActive ? (
-				<XStack
-					className="space-x-2.5 px-3 py-2 cursor-default"
-					onMouseEnter={onMouseEnterControls}
-					onMouseLeave={onMouseLeaveControls}
+			<XStack
+				className={cn(
+					"space-x-2.5 pl-6 pr-3 h-full items-center cursor-default border-border",
+					{ "bg-card": showControlsHover },
+				)}
+				style={{
+					clipPath: showControlsHover
+						? "polygon(0 0, 100% 0, 100% 100%, 16px 100%)"
+						: "",
+				}}
+				onMouseEnter={onMouseEnterControls}
+				onMouseLeave={onMouseLeaveControls}
+			>
+				<Flex
+					className={cn(
+						"w-3.5 h-3.5 rounded-full items-center justify-center cursor-pointer",
+						showControlsHover ? "bg-green-500" : "bg-gray-500",
+					)}
+					onClick={onToggleMaximize}
 				>
-					<Flex
-						className="w-3.5 h-3.5 bg-green-500 rounded-full items-center justify-center"
-						onClick={onToggleMaximize}
-					>
-						{isControlsHovered ? (
-							isWindowMaximized ? (
-								<MinimizeIcon className="w-2.5 h-2.5 text-black/90" />
-							) : (
-								<MaximizeIcon className="w-2.5 h-2.5 text-black/90" />
-							)
-						) : null}
-					</Flex>
-					<Flex
-						className="w-3.5 h-3.5 bg-yellow-500 rounded-full items-center justify-center"
-						onClick={onMinimize}
-					>
-						{isControlsHovered && (
-							<MinusIcon className="w-2.5 h-2.5 text-black/90" />
-						)}
-					</Flex>
-					<Flex
-						className="w-3.5 h-3.5 bg-red-400 rounded-full items-center justify-center"
-						onClick={onClose}
-					>
-						{isControlsHovered && (
-							<XIcon className="w-2.5 h-2.5 text-black/90" />
-						)}
-					</Flex>
-				</XStack>
-			) : (
-				<XStack className="space-x-2.5 px-3 py-2">
-					<Flex className="w-3.5 h-3.5 bg-gray-500 rounded-full" />
-					<Flex className="w-3.5 h-3.5 bg-gray-500 rounded-full" />
-					<Flex className="w-3.5 h-3.5 bg-gray-500 rounded-full" />
-				</XStack>
-			)}
+					{isControlsHovered ? (
+						isWindowMaximized ? (
+							<MinimizeIcon className="w-2.5 h-2.5 text-black/90" />
+						) : (
+							<MaximizeIcon className="w-2.5 h-2.5 text-black/90" />
+						)
+					) : null}
+				</Flex>
+				<Flex
+					className={cn(
+						"w-3.5 h-3.5 rounded-full items-center justify-center cursor-pointer",
+						showControlsHover ? "bg-yellow-500" : "bg-gray-500",
+					)}
+					onClick={onMinimize}
+				>
+					{isControlsHovered && (
+						<MinusIcon className="w-2.5 h-2.5 text-black/90" />
+					)}
+				</Flex>
+				<Flex
+					className={cn(
+						"w-3.5 h-3.5 rounded-full items-center justify-center cursor-pointer",
+						showControlsHover ? "bg-red-400" : "bg-gray-500",
+					)}
+					onClick={onClose}
+				>
+					{isControlsHovered && (
+						<XIcon className="w-2.5 h-2.5 text-black/90" />
+					)}
+				</Flex>
+			</XStack>
 		</XStack>
 	)
 }

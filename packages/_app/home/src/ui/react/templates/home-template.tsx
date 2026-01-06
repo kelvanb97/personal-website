@@ -2,8 +2,9 @@
 
 import { Logo } from "@kelvan-design/ui/logo"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
-import { useEffect, useRef, useState } from "react"
-import { Desktop } from "../organisms/desktop"
+import { ViewportProvider } from "#context/viewport-context"
+import { Desktop } from "#organisms/desktop"
+import { useRef } from "react"
 
 // import { NavbarFooter } from "#organisms/navfooter"
 
@@ -12,34 +13,6 @@ const RADIAL_MASK_CLASS_NAME =
 
 export function HomeTemplate() {
 	const containerRef = useRef<HTMLDivElement | null>(null)
-	const [viewport, setViewport] = useState({ width: 0, height: 0 })
-
-	useEffect(() => {
-		const el = containerRef.current
-		if (!el) return
-
-		const updateFromWindow = () => {
-			const w = window.innerWidth
-			const h = window.innerHeight
-			setViewport((s) =>
-				s.width === w && s.height === h ? s : { width: w, height: h },
-			)
-		}
-
-		updateFromWindow()
-
-		const ro = new ResizeObserver(() => {
-			updateFromWindow()
-		})
-
-		ro.observe(el)
-		window.addEventListener("resize", updateFromWindow)
-
-		return () => {
-			ro.disconnect()
-			window.removeEventListener("resize", updateFromWindow)
-		}
-	}, [])
 
 	return (
 		<YStack
@@ -48,7 +21,9 @@ export function HomeTemplate() {
 		>
 			<GridBackground />
 			<LogoSection />
-			<Desktop viewportSize={viewport} />
+			<ViewportProvider containerRef={containerRef}>
+				<Desktop />
+			</ViewportProvider>
 			{/* <NavbarFooter /> */}
 		</YStack>
 	)
@@ -68,7 +43,7 @@ function GridBackground() {
 
 function LogoSection() {
 	return (
-		<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+		<div className="absolute pointer-events-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 			<Logo width={500} />
 		</div>
 	)

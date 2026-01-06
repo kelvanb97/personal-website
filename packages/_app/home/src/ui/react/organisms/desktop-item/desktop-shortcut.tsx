@@ -2,11 +2,12 @@ import { cn } from "@kelvan-design/ui/cn"
 import { TextBody } from "@kelvan-design/ui/library/text"
 import { Flex } from "@kelvan-design/ui/primitives/flex"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
+import { useViewportContext } from "#context/viewport-context"
 import {
 	useDesktopStore,
 	type TDesktopItem,
 	type TDesktopItemId,
-} from "#desktop-store"
+} from "#store/desktop-store"
 import Image from "next/image"
 import { useCallback, useMemo, useRef, useState } from "react"
 
@@ -14,7 +15,6 @@ const PADDING = 16
 
 const DESKTOP_SHORTCUT_WIDTH = 112
 const DESKTOP_SHORTCUT_HEIGHT = 60
-const DESKTOP_SHORTCUT_ICON_SIZE = DESKTOP_SHORTCUT_WIDTH * 0.33
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
@@ -26,20 +26,28 @@ const rectsOverlap = (
 	b: { x: number; y: number; w: number; h: number },
 ) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
 
-interface IDesktopItemProps {
+interface IDesktopShortcutProps {
 	id: TDesktopItemId
 	desktopShortcut: TDesktopItem["shortcut"]
 	iconSrc: string
-	viewportSize: { width: number; height: number }
+	desktopIconCoefficient?: number
+	imageContainerClassName: string | undefined
 }
 
 export function DesktopShortcut({
 	id,
 	desktopShortcut,
 	iconSrc,
-	viewportSize,
-}: IDesktopItemProps) {
+	desktopIconCoefficient = 0.4,
+	imageContainerClassName,
+}: IDesktopShortcutProps) {
+	const { viewport } = useViewportContext()
 	const animRef = useRef<number | null>(null)
+
+	const desktopIconSize = useMemo(
+		() => DESKTOP_SHORTCUT_WIDTH * desktopIconCoefficient,
+		[desktopIconCoefficient],
+	)
 
 	const { setShortcutPos, openWindow } = useMemo(
 		() => useDesktopStore.getState(),
@@ -171,14 +179,8 @@ export function DesktopShortcut({
 
 			if (d.raf) cancelAnimationFrame(d.raf)
 
-			const maxX = Math.max(
-				0,
-				viewportSize.width - DESKTOP_SHORTCUT_WIDTH,
-			)
-			const maxY = Math.max(
-				0,
-				viewportSize.height - DESKTOP_SHORTCUT_HEIGHT,
-			)
+			const maxX = Math.max(0, viewport.width - DESKTOP_SHORTCUT_WIDTH)
+			const maxY = Math.max(0, viewport.height - DESKTOP_SHORTCUT_HEIGHT)
 
 			const clampedX = clamp(d.currentX, PADDING, maxX - PADDING)
 			const clampedY = clamp(d.currentY, PADDING, maxY - PADDING)
@@ -217,13 +219,7 @@ export function DesktopShortcut({
 
 			dragRef.current = null
 		},
-		[
-			viewportSize.height,
-			viewportSize.width,
-			setShortcutPos,
-			animateShortcutTo,
-			id,
-		],
+		[viewport, setShortcutPos, animateShortcutTo, id],
 	)
 
 	return (
@@ -231,7 +227,7 @@ export function DesktopShortcut({
 			className={cn(
 				"absolute",
 				"touch-none select-none",
-				"w-full h-full justify-center items-center space-y-0.5 cursor-pointer",
+				"w-full h-full justify-center items-center space-y-1.5 cursor-pointer",
 			)}
 			style={{
 				top: desktopShortcut.y,
@@ -248,12 +244,16 @@ export function DesktopShortcut({
 			onLostPointerCapture={endDrag}
 			onDoubleClick={handleDoubleClick}
 		>
-			<Image
-				src={iconSrc}
-				alt={id}
-				width={DESKTOP_SHORTCUT_ICON_SIZE}
-				height={DESKTOP_SHORTCUT_ICON_SIZE}
-			/>
+			{iconSrc && (
+				<Flex className={imageContainerClassName}>
+					<Image
+						src={iconSrc}
+						alt={id}
+						width={desktopIconSize}
+						height={desktopIconSize}
+					/>
+				</Flex>
+			)}
 			<Flex
 				className={cn(
 					"rounded-xs px-1",

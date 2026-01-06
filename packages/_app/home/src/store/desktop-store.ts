@@ -1,7 +1,15 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-export type TDesktopItemId = "resume.pdf" | "resume-2.pdf"
+export type TDesktopItemId =
+	| "performance"
+	| "profile-pic.jpg"
+	| "about"
+	| "resume.pdf"
+	| "contact"
+	| "projects"
+	| "README.md"
+	| "todos"
 
 export type TShortcutState = {
 	x: number
@@ -33,12 +41,10 @@ type TDesktopState = {
 
 type TDesktopActions = {
 	setShortcutPos: (id: TDesktopItemId, pos: Partial<TShortcutState>) => void
-
 	openWindow: (id: TDesktopItemId) => void
 	closeWindow: (id: TDesktopItemId) => void
 	toggleMinimize: (id: TDesktopItemId) => void
 	toggleMaximize: (id: TDesktopItemId) => void
-
 	setWindowPos: (
 		id: TDesktopItemId,
 		pos: Partial<Pick<TWindowState, "x" | "y">>,
@@ -47,15 +53,16 @@ type TDesktopActions = {
 		id: TDesktopItemId,
 		size: Partial<Pick<TWindowState, "width" | "height">>,
 	) => void
-
 	bringToFront: (id: TDesktopItemId) => void
 	setActiveWindow: (id: TDesktopItemId) => void
+	reset: () => void
 }
 
 const initialState: TDesktopState = {
 	items: {
-		"resume.pdf": {
-			id: "resume.pdf",
+		// column 1
+		"profile-pic.jpg": {
+			id: "profile-pic.jpg",
 			shortcut: {
 				x: 50,
 				y: 50,
@@ -64,25 +71,128 @@ const initialState: TDesktopState = {
 				isOpen: false,
 				isMinimized: false,
 				isMaximized: false,
-				x: 100,
-				y: 100,
+				x: 106,
+				y: 80,
 				width: 800,
 				height: 600,
 				zIndex: 1,
 			},
 		},
-		"resume-2.pdf": {
-			id: "resume-2.pdf",
+		performance: {
+			id: "performance",
 			shortcut: {
 				x: 50,
+				y: 150,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 106,
+				y: 180,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		about: {
+			id: "about",
+			shortcut: {
+				x: 50,
+				y: 250,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 106,
+				y: 280,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		contact: {
+			id: "contact",
+			shortcut: {
+				x: 50,
+				y: 350,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 106,
+				y: 380,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		"resume.pdf": {
+			id: "resume.pdf",
+			shortcut: {
+				x: 50,
+				y: 450,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 106,
+				y: 480,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		//column 2
+		projects: {
+			id: "projects",
+			shortcut: {
+				x: 200,
 				y: 50,
 			},
 			window: {
 				isOpen: false,
 				isMinimized: false,
 				isMaximized: false,
-				x: 100,
-				y: 100,
+				x: 256,
+				y: 80,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		"README.md": {
+			id: "README.md",
+			shortcut: {
+				x: 200,
+				y: 150,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 256,
+				y: 180,
+				width: 800,
+				height: 600,
+				zIndex: 1,
+			},
+		},
+		todos: {
+			id: "todos",
+			shortcut: {
+				x: 200,
+				y: 250,
+			},
+			window: {
+				isOpen: false,
+				isMinimized: false,
+				isMaximized: false,
+				x: 256,
+				y: 280,
 				width: 800,
 				height: 600,
 				zIndex: 1,
@@ -243,6 +353,7 @@ export const useDesktopStore = create<TDesktopState & TDesktopActions>()(
 						},
 					}
 				}),
+			reset: () => set(() => ({ ...initialState })),
 		}),
 		{
 			name: "desktop-store",

@@ -1,6 +1,6 @@
 "use client"
 
-import { type TDesktopItem } from "#desktop-store"
+import { type TDesktopItem } from "#store/desktop-store"
 import { memo } from "react"
 import { DesktopShortcut } from "./desktop-shortcut"
 import { DesktopWindow } from "./desktop-window"
@@ -8,8 +8,8 @@ import { DesktopWindow } from "./desktop-window"
 interface IDesktopItemProps {
 	desktopItem: TDesktopItem
 	iconSrc: string
-	viewportSize: { width: number; height: number }
 	isWindowActive: boolean
+	imageContainerClassName?: string
 	children: React.ReactNode
 }
 
@@ -17,8 +17,8 @@ export const DesktopItem = memo(
 	({
 		desktopItem,
 		iconSrc,
-		viewportSize,
 		isWindowActive,
+		imageContainerClassName,
 		children,
 	}: IDesktopItemProps) => {
 		return (
@@ -27,12 +27,11 @@ export const DesktopItem = memo(
 					id={desktopItem.id}
 					desktopShortcut={desktopItem.shortcut}
 					iconSrc={iconSrc}
-					viewportSize={viewportSize}
+					imageContainerClassName={imageContainerClassName}
 				/>
 				<DesktopWindow
 					id={desktopItem.id}
 					desktopWindow={desktopItem.window}
-					viewportSize={viewportSize}
 					isWindowActive={isWindowActive}
 				>
 					{children}
