@@ -91,7 +91,7 @@ const initialState: TDesktopState = {
 				x: 106,
 				y: 180,
 				width: 800,
-				height: 600,
+				height: 700,
 				zIndex: 1,
 			},
 		},
