@@ -127,6 +127,7 @@ export interface ITextBodyProps {
 	className?: string
 	variant?: TVariant
 	size?:
+		| "2xs"
 		| "xs"
 		| "sm"
 		| "md"
@@ -149,6 +150,8 @@ export function TextBody({
 }: ITextBodyProps) {
 	const sizeClassName = (() => {
 		switch (size) {
+			case "2xs":
+				return "text-[10px] font-normal"
 			case "xs":
 				return "text-xs font-normal"
 			case "sm":

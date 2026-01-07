@@ -1,5 +1,6 @@
 import { useDesktopStore } from "#store/desktop-store"
 import { DesktopItem } from "./desktop-item/desktop-item"
+import { Performance } from "./window-content/performance"
 import { ProfilePic } from "./window-content/profile-pic"
 import { Readme } from "./window-content/readme"
 import { Resume } from "./window-content/resume"
@@ -23,7 +24,7 @@ export function Desktop() {
 				iconSrc="/activity-monitor.png"
 				isWindowActive={activeWindowId === "performance"}
 			>
-				<Resume />
+				<Performance />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["about"]}
