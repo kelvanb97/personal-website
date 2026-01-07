@@ -1,6 +1,7 @@
 import { useDesktopStore } from "#store/desktop-store"
 import { DesktopItem } from "./desktop-item/desktop-item"
 import { ProfilePic } from "./window-content/profile-pic"
+import { Readme } from "./window-content/readme"
 import { Resume } from "./window-content/resume"
 import { Todos } from "./window-content/todos"
 
@@ -57,7 +58,7 @@ export function Desktop() {
 				iconSrc="/md-icon.png"
 				isWindowActive={activeWindowId === "README.md"}
 			>
-				<Resume />
+				<Readme />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["todos"]}
