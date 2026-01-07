@@ -1,5 +1,9 @@
-import { Flex } from "@kelvan-design/ui/primitives/flex"
-
 export function Resume() {
-	return <Flex className="p-3">This is my resume</Flex>
+	return (
+		<iframe
+			src="/resume.pdf#view=FitH&toolbar=0&navpanes=0"
+			className="h-full w-full resume-scroll"
+			title="Resume"
+		/>
+	)
 }
