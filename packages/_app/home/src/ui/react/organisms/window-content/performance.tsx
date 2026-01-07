@@ -350,17 +350,29 @@ function StatRow({
 	sub?: React.ReactNode
 }) {
 	return (
-		<div className="flex items-baseline justify-between gap-4">
-			<div className="text-xs text-white/60">{label}</div>
+		<XStack className="items-baseline justify-between space-x-4">
+			<TextBody
+				size="xs"
+				variant="accent-foreground"
+				className="font-semibold"
+			>
+				{label}
+			</TextBody>
 			<div className="text-right">
-				<div className="text-sm font-semibold text-white/90">
+				<TextBody
+					size="sm"
+					variant="accent-foreground"
+					className="font-semibold"
+				>
 					{value}
-				</div>
+				</TextBody>
 				{sub ? (
-					<div className="text-[11px] text-white/45">{sub}</div>
+					<TextBody size="2xs" variant="muted-foreground">
+						{sub}
+					</TextBody>
 				) : null}
 			</div>
-		</div>
+		</XStack>
 	)
 }
 
@@ -602,7 +614,7 @@ function Body({
 						)}
 					>
 						<TextBody
-							size="2xs"
+							size="xs"
 							variant="muted-foreground"
 							className="font-bold tracking-widest"
 						>
@@ -628,7 +640,7 @@ function Body({
 						)}
 					>
 						<TextBody
-							size="2xs"
+							size="xs"
 							variant="muted-foreground"
 							className="font-bold tracking-widest"
 						>
@@ -767,7 +779,7 @@ function Body({
 				)}
 			>
 				<TextBody
-					size="2xs"
+					size="xs"
 					variant="muted-foreground"
 					className="font-bold tracking-widest"
 				>
