@@ -5,7 +5,7 @@
 	"type": "module",
 	"sideEffects": false,
 	"exports": {
-		"./contact-modal": "./src/ui/react/organisms/contact-modal.tsx"
+		"./contact-form": "./src/ui/react/organisms/contact-form.tsx"
 	},
 	"scripts": {
 		"check-types": "tsc --noEmit",

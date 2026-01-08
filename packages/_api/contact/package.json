@@ -18,7 +18,8 @@
 	},
 	"dependencies": {
 		"@kelvan-core/next-safe-action": "workspace:*",
-		"@kelvan-core/result": "workspace:*"
+		"@kelvan-core/result": "workspace:*",
+		"@kelvan-integrations/email": "workspace:*"
 	},
 	"devDependencies": {
 		"@kelvan-core/eslint": "workspace:*",

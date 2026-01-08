@@ -41,6 +41,7 @@ export {
 	RefreshCw as RefreshCwIcon,
 	Rocket as RocketIcon,
 	SearchX as SearchXIcon,
+	Send as SendIcon,
 	Settings as SettingsIcon,
 	Shield as ShieldIcon,
 	Sparkles as SparklesIcon,

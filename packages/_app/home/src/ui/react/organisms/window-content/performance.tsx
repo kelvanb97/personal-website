@@ -492,7 +492,7 @@ interface IHeaderProps {
 
 function Header({ fps, jankPct, stress, setStress, avgMs }: IHeaderProps) {
 	return (
-		<Flex className="flex items-center justify-between border-b border-white/10 px-4 py-3 space-x-4">
+		<Flex className="flex items-center justify-between border-b border-white/10 p-3 space-x-4">
 			<StatusBadge fps={fps} jankPct={jankPct} />
 			<XStack className="items-center gap-2">
 				<div

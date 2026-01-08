@@ -109,6 +109,9 @@ importers:
       '@kelvan-core/result':
         specifier: workspace:*
         version: link:../../_core/result
+      '@kelvan-integrations/email':
+        specifier: workspace:*
+        version: link:../../_integrations/email
     devDependencies:
       '@kelvan-core/eslint':
         specifier: workspace:*
@@ -171,6 +174,9 @@ importers:
 
   packages/_app/home:
     dependencies:
+      '@kelvan-app/contact':
+        specifier: workspace:*
+        version: link:../contact
       '@kelvan-core/next-safe-action':
         specifier: workspace:*
         version: link:../../_core/next-safe-action
@@ -514,6 +520,37 @@ importers:
         specifier: 16.0.10
         version: 16.0.10(@opentelemetry/api@1.9.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
 
+  packages/_integrations/email:
+    dependencies:
+      '@kelvan-core/dates':
+        specifier: workspace:*
+        version: link:../../_core/dates
+      '@kelvan-core/result':
+        specifier: workspace:*
+        version: link:../../_core/result
+      '@kelvan-integrations/resend':
+        specifier: workspace:*
+        version: link:../resend
+      '@kelvan-shared/consts':
+        specifier: workspace:*
+        version: link:../../_shared/consts
+    devDependencies:
+      '@kelvan-core/eslint':
+        specifier: workspace:*
+        version: link:../../_core/eslint
+      '@kelvan-core/tsconfig':
+        specifier: workspace:*
+        version: link:../../_core/tsconfig
+      '@types/node':
+        specifier: 20.19.2
+        version: 20.19.2
+      eslint:
+        specifier: 9.24.0
+        version: 9.24.0(jiti@2.6.1)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
   packages/_integrations/posthog-analytics:
     dependencies:
       '@t3-oss/env-nextjs':
@@ -541,6 +578,37 @@ importers:
       eslint:
         specifier: 9.24.0
         version: 9.24.0(jiti@2.6.1)
+
+  packages/_integrations/resend:
+    dependencies:
+      '@kelvan-core/result':
+        specifier: workspace:*
+        version: link:../../_core/result
+      '@t3-oss/env-nextjs':
+        specifier: 0.12.0
+        version: 0.12.0(typescript@5.8.3)(zod@4.1.12)
+      resend:
+        specifier: 6.0.3
+        version: 6.0.3
+      zod:
+        specifier: 4.1.12
+        version: 4.1.12
+    devDependencies:
+      '@kelvan-core/eslint':
+        specifier: workspace:*
+        version: link:../../_core/eslint
+      '@kelvan-core/tsconfig':
+        specifier: workspace:*
+        version: link:../../_core/tsconfig
+      '@types/node':
+        specifier: 20.19.2
+        version: 20.19.2
+      eslint:
+        specifier: 9.24.0
+        version: 9.24.0(jiti@2.6.1)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
 
   packages/_shared/consts:
     devDependencies:
@@ -3586,6 +3654,15 @@ packages:
 
   require-package-name@2.0.1:
     resolution: {integrity: sha512-uuoJ1hU/k6M0779t3VMVIYpb2VMJk05cehCaABFhXaibcbvfgR8wKiozLjVFSzJPmQMRqIcO0HMyTFqfV09V6Q==}
+
+  resend@6.0.3:
+    resolution: {integrity: sha512-Yb7o2n52v91LjkUjq5vIZQbJrGiaPoMo2VPAyS0QTKA73tmvHMUQ7P1M56J1ux/Cw9Lf68PeaKidTl6GuS8DTA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@react-email/render': ^1.1.0
+    peerDependenciesMeta:
+      '@react-email/render':
+        optional: true
 
   resolve-dir@1.0.1:
     resolution: {integrity: sha512-R7uiTjECzvOsWSfdM0QKFNBVFcK27aHOUwdvK53BcW8zqnGdYp0Fbj82cy54+2A4P2tFM22J5kRfe1R+lM/1yg==}
@@ -7291,6 +7368,8 @@ snapshots:
   require-from-string@2.0.2: {}
 
   require-package-name@2.0.1: {}
+
+  resend@6.0.3: {}
 
   resolve-dir@1.0.1:
     dependencies:
