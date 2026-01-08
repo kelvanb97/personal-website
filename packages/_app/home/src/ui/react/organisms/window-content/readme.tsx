@@ -108,6 +108,22 @@ export function Readme() {
 					variant="accent-foreground"
 					className="font-bold mt-3"
 				>
+					Is there a backend?
+				</TextBody>
+				<TextBody
+					size="sm"
+					variant="accent-foreground"
+					className="mt-2"
+				>
+					There is an extremely minimal backend that handles the
+					contact form submissions. I send myself emails via a Resend
+					integration, using a Next.js server action.
+				</TextBody>
+				<TextBody
+					size="2xl"
+					variant="accent-foreground"
+					className="font-bold mt-3"
+				>
 					Do you plan to maintain this site?
 				</TextBody>
 				<TextBody

@@ -1,5 +1,6 @@
 import { useDesktopStore } from "#store/desktop-store"
 import { DesktopItem } from "./desktop-item/desktop-item"
+import { Contact } from "./window-content/contact"
 import { Performance } from "./window-content/performance"
 import { ProfilePic } from "./window-content/profile-pic"
 import { Readme } from "./window-content/readme"
@@ -45,7 +46,7 @@ export function Desktop() {
 				iconSrc="/email-icon.png"
 				isWindowActive={activeWindowId === "contact"}
 			>
-				<Resume />
+				<Contact />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["projects"]}

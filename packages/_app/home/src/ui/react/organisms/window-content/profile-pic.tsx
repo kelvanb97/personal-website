@@ -13,7 +13,7 @@ export function ProfilePic() {
 	)
 
 	return (
-		<Flex className="w-full h-full justify-center items-center p-4">
+		<Flex className="w-full h-full justify-center items-center p-3">
 			<Image
 				src="/profile-pic.jpg"
 				alt="Profile Picture"
