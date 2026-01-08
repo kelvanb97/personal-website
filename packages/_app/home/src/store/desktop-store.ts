@@ -29,6 +29,7 @@ export type TWindowState = {
 
 export type TDesktopItem = {
 	id: TDesktopItemId
+	iconSrc: string
 	shortcut: TShortcutState
 	window: TWindowState
 }
@@ -63,6 +64,7 @@ const initialState: TDesktopState = {
 		// column 1
 		"profile-pic.jpg": {
 			id: "profile-pic.jpg",
+			iconSrc: "/profile-pic.jpg",
 			shortcut: {
 				x: 50,
 				y: 50,
@@ -80,6 +82,7 @@ const initialState: TDesktopState = {
 		},
 		performance: {
 			id: "performance",
+			iconSrc: "/activity-monitor.png",
 			shortcut: {
 				x: 50,
 				y: 150,
@@ -97,6 +100,7 @@ const initialState: TDesktopState = {
 		},
 		about: {
 			id: "about",
+			iconSrc: "/k-square.png",
 			shortcut: {
 				x: 50,
 				y: 250,
@@ -114,6 +118,7 @@ const initialState: TDesktopState = {
 		},
 		contact: {
 			id: "contact",
+			iconSrc: "/email-icon.png",
 			shortcut: {
 				x: 50,
 				y: 350,
@@ -131,6 +136,7 @@ const initialState: TDesktopState = {
 		},
 		"resume.pdf": {
 			id: "resume.pdf",
+			iconSrc: "/pdf-file-icon.png",
 			shortcut: {
 				x: 50,
 				y: 450,
@@ -149,6 +155,7 @@ const initialState: TDesktopState = {
 		//column 2
 		projects: {
 			id: "projects",
+			iconSrc: "/folder.png",
 			shortcut: {
 				x: 200,
 				y: 50,
@@ -166,6 +173,7 @@ const initialState: TDesktopState = {
 		},
 		"README.md": {
 			id: "README.md",
+			iconSrc: "/md-icon.png",
 			shortcut: {
 				x: 200,
 				y: 150,
@@ -183,6 +191,7 @@ const initialState: TDesktopState = {
 		},
 		todos: {
 			id: "todos",
+			iconSrc: "/notes.png",
 			shortcut: {
 				x: 200,
 				y: 250,

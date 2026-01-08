@@ -7,7 +7,6 @@ import { DesktopWindow } from "./desktop-window"
 
 interface IDesktopItemProps {
 	desktopItem: TDesktopItem
-	iconSrc: string
 	isWindowActive: boolean
 	imageContainerClassName?: string
 	children: React.ReactNode
@@ -16,7 +15,6 @@ interface IDesktopItemProps {
 export const DesktopItem = memo(
 	({
 		desktopItem,
-		iconSrc,
 		isWindowActive,
 		imageContainerClassName,
 		children,
@@ -26,7 +24,7 @@ export const DesktopItem = memo(
 				<DesktopShortcut
 					id={desktopItem.id}
 					desktopShortcut={desktopItem.shortcut}
-					iconSrc={iconSrc}
+					iconSrc={desktopItem.iconSrc}
 					imageContainerClassName={imageContainerClassName}
 				/>
 				<DesktopWindow
