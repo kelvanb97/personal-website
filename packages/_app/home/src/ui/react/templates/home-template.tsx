@@ -1,12 +1,12 @@
 "use client"
 
+import { cn } from "@kelvan-design/ui/cn"
 import { Logo } from "@kelvan-design/ui/logo"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { ViewportProvider } from "#context/viewport-context"
 import { Desktop } from "#organisms/desktop"
+import { NavbarFooter } from "#organisms/navfooter"
 import { useRef } from "react"
-
-// import { NavbarFooter } from "#organisms/navfooter"
 
 const RADIAL_MASK_CLASS_NAME =
 	"bg-[linear-gradient(180deg,var(--color-card)_0%,var(--color-background)_100%)]"
@@ -17,14 +17,17 @@ export function HomeTemplate() {
 	return (
 		<YStack
 			ref={containerRef}
-			className={`p-8 bg-background h-screen w-screen min-h-[100vh] relative overflow-hidden ${RADIAL_MASK_CLASS_NAME}`}
+			className={cn(
+				`p-8 bg-background h-screen w-screen min-h-[100vh] relative overflow-hidden`,
+				RADIAL_MASK_CLASS_NAME,
+			)}
 		>
 			<GridBackground />
 			<LogoSection />
 			<ViewportProvider containerRef={containerRef}>
 				<Desktop />
 			</ViewportProvider>
-			{/* <NavbarFooter /> */}
+			<NavbarFooter className="-mx-8 overflow-hidden" />
 		</YStack>
 	)
 }

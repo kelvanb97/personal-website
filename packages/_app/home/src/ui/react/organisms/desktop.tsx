@@ -14,7 +14,6 @@ export function Desktop() {
 		<>
 			<DesktopItem
 				desktopItem={desktopItems["profile-pic.jpg"]}
-				iconSrc="/profile-pic.jpg"
 				isWindowActive={activeWindowId === "profile-pic.jpg"}
 				imageContainerClassName="border-accent-foreground border-2"
 			>
@@ -22,49 +21,42 @@ export function Desktop() {
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["performance"]}
-				iconSrc="/activity-monitor.png"
 				isWindowActive={activeWindowId === "performance"}
 			>
 				<Performance />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["about"]}
-				iconSrc="/k-square.png"
 				isWindowActive={activeWindowId === "about"}
 			>
 				<Resume />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["resume.pdf"]}
-				iconSrc="/pdf-file-icon.png"
 				isWindowActive={activeWindowId === "resume.pdf"}
 			>
 				<Resume />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["contact"]}
-				iconSrc="/email-icon.png"
 				isWindowActive={activeWindowId === "contact"}
 			>
 				<Contact />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["projects"]}
-				iconSrc="/folder.png"
 				isWindowActive={activeWindowId === "projects"}
 			>
 				<Resume />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["README.md"]}
-				iconSrc="/md-icon.png"
 				isWindowActive={activeWindowId === "README.md"}
 			>
 				<Readme />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["todos"]}
-				iconSrc="/notes.png"
 				isWindowActive={activeWindowId === "todos"}
 			>
 				<Todos />
