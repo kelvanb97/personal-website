@@ -1,5 +1,6 @@
 import { useDesktopStore } from "#store/desktop-store"
 import { DesktopItem } from "./desktop-item/desktop-item"
+import { Bundle } from "./window-content/bundle"
 import { Contact } from "./window-content/contact"
 import { Performance } from "./window-content/performance"
 import { ProfilePic } from "./window-content/profile-pic"
@@ -60,6 +61,12 @@ export function Desktop() {
 				isWindowActive={activeWindowId === "todos"}
 			>
 				<Todos />
+			</DesktopItem>
+			<DesktopItem
+				desktopItem={desktopItems["bundle-analysis"]}
+				isWindowActive={activeWindowId === "bundle-analysis"}
+			>
+				<Bundle />
 			</DesktopItem>
 		</>
 	)
