@@ -22,11 +22,11 @@
 					{ value: "E783", enumerable: !1, configurable: !0 },
 				)
 			let { pathname } = new URL(currentScript.src),
-				nextIndex = pathname.indexOf("/_next/")
+				nextIndex = pathname.indexOf("/_analyze/")
 			if (-1 === nextIndex)
 				throw Object.defineProperty(
 					new _invarianterror.InvariantError(
-						`Expected document.currentScript src to contain '/_next/'. Received ${currentScript.src} instead.`,
+						`Expected document.currentScript src to contain '/_analyze/'. Received ${currentScript.src} instead.`,
 					),
 					"__NEXT_ERROR_CODE",
 					{ value: "E784", enumerable: !1, configurable: !0 },

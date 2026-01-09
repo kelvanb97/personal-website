@@ -12,7 +12,7 @@
 	(() => {
 		let BACKEND
 		if (!Array.isArray(globalThis.TURBOPACK)) return
-		let CHUNK_BASE_PATH = "/_next/",
+		let CHUNK_BASE_PATH = "/_analyze/",
 			REEXPORTED_OBJECTS = new WeakMap()
 		function Context(module, exports) {
 			;(this.m = module), (this.e = exports)

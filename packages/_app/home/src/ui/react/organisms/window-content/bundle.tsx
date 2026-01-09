@@ -4,7 +4,7 @@ export function Bundle() {
 	return (
 		<Flex className="w-full h-full">
 			<iframe
-				src="/index.html"
+				src="/_analyze/index.html"
 				className="w-full h-full"
 				sandbox="allow-scripts allow-same-origin"
 			/>
