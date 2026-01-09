@@ -11,12 +11,12 @@
 		"build": "turbo run build",
 		"check-types": "turbo run check-types",
 		"depcheck": "pnpm -r --workspace-concurrency=1 exec -- sh -c 'echo \"\n$PNPM_PACKAGE_NAME\" && depcheck || true'",
+		"destroy-cache": "rm -rf .turbo; find . -type d -path '*/*/.turbo' -print0 | xargs -0 rm -rf; rm -rf .next; find . -type d -path '*/*/.next' -print0 | xargs -0 rm -rf",
 		"dev": "turbo run dev",
 		"format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,css}\"",
 		"lint": "turbo run lint",
 		"prepare": "husky",
 		"purge": "rm -rf node_modules; find . -type d -path '*/*/node_modules' -print0 | xargs -0 rm -rf",
-		"destroy-cache": "rm -rf .turbo; find . -type d -path '*/*/.turbo' -print0 | xargs -0 rm -rf; rm -rf .next; find . -type d -path '*/*/.next' -print0 | xargs -0 rm -rf",
 		"test": "turbo run test"
 	},
 	"dependencies": {

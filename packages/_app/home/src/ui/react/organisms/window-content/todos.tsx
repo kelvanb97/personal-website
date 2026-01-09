@@ -6,14 +6,10 @@ import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { useState } from "react"
 
 const TODOS = [
-	"update desktop shortcut positioning from cartesian to viewport % relative",
 	"update reset logic to detect for collisions instead of resetting every time the viewport changes",
-	"allow windows to go partially offscreen instead of not allowing any part to go offscreen",
 	"implement window snapping to edges and other windows",
-	"implement window maximize/restore functionality",
-	"improve mobile experience",
-	"add more to the about section",
 	"set window to active when a drag starts",
+	"add bundle analyzer as a window",
 ]
 
 export function Todos() {

@@ -13,7 +13,7 @@
 		"lint": "eslint ./src"
 	},
 	"peerDependencies": {
-		"next": "^16.0.10",
+		"next": "^16.1.1",
 		"zod": "^4.1.12"
 	},
 	"dependencies": {
@@ -26,7 +26,7 @@
 		"@kelvan-core/tsconfig": "workspace:*",
 		"@types/node": "20.19.2",
 		"eslint": "9.24.0",
-		"next": "16.0.10",
+		"next": "16.1.1",
 		"zod": "4.1.12"
 	},
 	"imports": {
