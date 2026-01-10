@@ -125,6 +125,7 @@ export function BlockQuote({ children, className, variant }: IHeaderProps) {
 export interface ITextBodyProps {
 	children: React.ReactNode
 	className?: string
+	style?: React.CSSProperties | undefined
 	variant?: TVariant
 	size?:
 		| "2xs"
@@ -145,6 +146,7 @@ export interface ITextBodyProps {
 export function TextBody({
 	children,
 	className,
+	style,
 	size = "md",
 	variant = "primary",
 }: ITextBodyProps) {
@@ -189,6 +191,7 @@ export function TextBody({
 				inter.className,
 				className,
 			)}
+			style={style}
 		>
 			{children}
 		</div>

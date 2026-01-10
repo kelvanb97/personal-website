@@ -1,5 +1,6 @@
 import { useDesktopStore } from "#store/desktop-store"
 import { DesktopItem } from "./desktop-item/desktop-item"
+import { About } from "./window-content/about/about"
 import { Bundle } from "./window-content/bundle"
 import { Contact } from "./window-content/contact"
 import { Performance } from "./window-content/performance"
@@ -30,7 +31,7 @@ export function Desktop() {
 				desktopItem={desktopItems["about"]}
 				isWindowActive={activeWindowId === "about"}
 			>
-				<Resume />
+				<About />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["resume.pdf"]}
