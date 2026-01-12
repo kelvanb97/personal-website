@@ -78,17 +78,16 @@ function SlayTheSpire() {
 					Slay The Spire
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					Slay the Spire is basically my favorite kind of systems
-					thinking: you start with constraints, make a sequence of
-					small choices, and those choices snowball into a build that
-					either works—or collapses because you got greedy. I like how
-					it teaches discipline: skipping a card is often the correct
-					move, and “more options” can actually reduce consistency. It
-					scratches the same itch as engineering design—managing
-					complexity, minimizing failure modes, and building toward a
-					coherent strategy rather than chasing shiny tactics. Also,
-					it's a masterclass in feedback loops: every run is a short
-					experiment with clear learning.
+					Slay The Spire is a deck-building roguelike where you make a
+					sequence of small choices that snowball into a build that
+					either works or collapses. It rewards discipline and
+					strategic thinking.
+				</TextBody>
+				<TextBody variant="accent-foreground">
+					In order to "slay the spire," you must balance decisions
+					that benefit you immediately with those that pay off later.
+					This tension between short-term gain and long-term strategy
+					is at the heart of the game.
 				</TextBody>
 			</YStack>
 			<MiterWindow link="https://store.steampowered.com/app/646570/Slay_the_Spire/">
@@ -121,12 +120,17 @@ function Chess() {
 					Chess
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					I started playing chess when I was 3 years old. I played
+					I started playing chess when I was 7 years old. I played
 					until ~12 years old rather consistently then didn't get back
 					into the game until my early 20s.
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					Highest Elo achieved: 1781
+					Highest Elo achieved: <b>1781</b>
+				</TextBody>
+				<TextBody variant="accent-foreground">
+					I still enjoy playing casually. But having to study openings
+					and tactics started to take away from the fun for me. I also
+					am unsure how to feel about chess being a "solved" game.
 				</TextBody>
 			</YStack>
 		</XStack>
@@ -146,8 +150,9 @@ function Doom() {
 					and weapon choice is key to surviving the onslaught.
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					It rewards pattern recognition and communication as much as
-					mechanics.
+					There is some amount of strategy to this game but it is
+					primarily action-oriented. Shoot enemies, dodge attacks, and
+					use the right weapons for the situation.
 				</TextBody>
 			</YStack>
 			<MiterWindow
@@ -182,15 +187,20 @@ function Terraria() {
 					Terraria
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					Real-time strategy disguised as chaos. You're constantly
-					making decisions with incomplete information: lane matchups,
-					power spikes, vision, itemization, and timing windows. Then
-					coordinating those decisions with four other humans who are
-					doing the same.
+					Terraria is a sandbox adventure game where you explore,
+					build, and fight in a procedurally generated world. It
+					rewards creativity, exploration, and strategic planning.
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					It rewards pattern recognition and communication as much as
-					mechanics.
+					Many people often compare it to a 2D version of Minecraft.
+					The building, mining, and crafting mechanics are similar,
+					but Terraria adds combat, exploration, and crafting
+					elements.
+				</TextBody>
+				<TextBody variant="accent-foreground">
+					This game is pretty interesting because you can make combats
+					exponentially easier by building specialized structures and
+					setups for different enemies.
 				</TextBody>
 			</YStack>
 		</XStack>
@@ -200,20 +210,19 @@ function Terraria() {
 function DarkSouls() {
 	return (
 		<XStack className="space-x-8">
-			<YStack className="space-y-4">
+			<YStack className="space-y-4 min-w-sm">
 				<TextBody size="5xl" variant="accent-foreground">
-					DarkSouls
+					Dark Souls
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					Real-time strategy disguised as chaos. You're constantly
-					making decisions with incomplete information: lane matchups,
-					power spikes, vision, itemization, and timing windows. Then
-					coordinating those decisions with four other humans who are
-					doing the same.
+					Dark Souls is an action RPG known for its challenging
+					combat, cryptic story, and intricate world design. It
+					rewards patience, strategy, and learning from failure.
 				</TextBody>
 				<TextBody variant="accent-foreground">
-					It rewards pattern recognition and communication as much as
-					mechanics.
+					The phrase "Get Good" is often associated with the
+					franchise. In essence meaning, the game is hard, and the
+					only way to make it less hard is to improve your skills.
 				</TextBody>
 			</YStack>
 			<MiterWindow link="https://store.steampowered.com/app/570940/DARK_SOULS_REMASTERED/">
