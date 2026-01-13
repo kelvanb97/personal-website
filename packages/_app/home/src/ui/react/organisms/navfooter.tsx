@@ -77,7 +77,7 @@ export function NavbarFooter({ className }: INavbarFooterProps) {
 						disabled={isContactButtonDisabled}
 					>
 						<Image
-							src={"/email-icon.png"}
+							src="/assets/desktop-shortcut/email-icon.png"
 							alt="Email Icon"
 							width={16}
 							height={16}
