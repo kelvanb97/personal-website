@@ -18,7 +18,7 @@ export function HomeTemplate() {
 		<YStack
 			ref={containerRef}
 			className={cn(
-				`p-8 bg-background h-screen w-screen min-h-[100vh] relative overflow-hidden`,
+				`p-8 bg-background min-h-screen max-h-screen min-w-screen max-w-screen relative overflow-hidden`,
 				RADIAL_MASK_CLASS_NAME,
 			)}
 		>

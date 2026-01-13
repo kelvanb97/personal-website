@@ -1,4 +1,5 @@
 export {
+	ArrowLeft as ArrowLeftIcon,
 	ArrowRight as ArrowRightIcon,
 	ArrowUpDown as ArrowUpDownIcon,
 	Blocks as BlocksIcon,

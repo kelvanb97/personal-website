@@ -5,6 +5,7 @@ import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { useMemo, useState } from "react"
 import { Games } from "./games"
+import { Personal } from "./personal"
 
 const MITER_CUT_WIDTH = 32
 const CLIP_PATH = `polygon(0 0, 100% 0, calc(100% - ${MITER_CUT_WIDTH}px) 100%, 0% 100%)`
@@ -91,9 +92,7 @@ export function About() {
 						}}
 					/>
 				</XStack>
-				<Flex className="p-3 justify-center w-full h-full">
-					{renderedTab}
-				</Flex>
+				<Flex className="p-3 w-full h-full">{renderedTab}</Flex>
 			</YStack>
 		</Flex>
 	)
@@ -151,10 +150,6 @@ function GradientBg() {
 			}}
 		/>
 	)
-}
-
-function Personal() {
-	return <div>This is Personal</div>
 }
 
 function Mountains() {

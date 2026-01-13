@@ -15,7 +15,7 @@ export function ProfilePic() {
 	return (
 		<Flex className="w-full h-full justify-center items-center p-3">
 			<Image
-				src="/profile-pic.jpg"
+				src="/assets/desktop-shortcut/profile-pic.jpg"
 				alt="Profile Picture"
 				width={size}
 				height={size}

@@ -8,7 +8,7 @@ import { useCallback, useState } from "react"
 
 export function Games() {
 	return (
-		<YStack className="space-y-24 py-16 mb-16 max-w-4xl">
+		<YStack className="space-y-24 py-16 mb-16 max-w-4xl mx-auto">
 			<YStack className="space-y-4 text-center">
 				<TextBody size="5xl" variant="accent-foreground">
 					Games
@@ -41,7 +41,7 @@ function Dota2() {
 		<XStack className="space-x-8">
 			<MiterWindow link="https://www.dota2.com/">
 				<video
-					src="/assets/videos/morphling.mov"
+					src="/assets/about/games/morphling.mov"
 					autoPlay
 					loop
 					muted
@@ -92,7 +92,7 @@ function SlayTheSpire() {
 			</YStack>
 			<MiterWindow link="https://store.steampowered.com/app/646570/Slay_the_Spire/">
 				<Image
-					src="/assets/slay-the-spire.jpg"
+					src="/assets/about/games/slay-the-spire.jpg"
 					alt="Slay The Spire"
 					layout="responsive"
 					width={800}
@@ -108,7 +108,7 @@ function Chess() {
 		<XStack className="space-x-8">
 			<MiterWindow link="https://lichess.org/">
 				<Image
-					src="/assets/pawn.png"
+					src="/assets/about/games/pawn.png"
 					alt="Chess"
 					layout="responsive"
 					width={800}
@@ -160,7 +160,7 @@ function Doom() {
 				className="shrink-0"
 			>
 				<Image
-					src="/assets/doom-eternal.jpg"
+					src="/assets/about/games/doom-eternal.jpg"
 					alt="Doom Eternal"
 					layout="responsive"
 					width={500}
@@ -176,7 +176,7 @@ function Terraria() {
 		<XStack className="space-x-8">
 			<MiterWindow link="https://terraria.org/">
 				<Image
-					src="/assets/terraria.png"
+					src="/assets/about/games/terraria.png"
 					alt="Terraria"
 					width={1000}
 					height={1000}
@@ -227,7 +227,7 @@ function DarkSouls() {
 			</YStack>
 			<MiterWindow link="https://store.steampowered.com/app/570940/DARK_SOULS_REMASTERED/">
 				<Image
-					src="/assets/dark-souls.jpg"
+					src="/assets/about/games/dark-souls.jpg"
 					alt="Dark Souls"
 					layout="responsive"
 					width={500}

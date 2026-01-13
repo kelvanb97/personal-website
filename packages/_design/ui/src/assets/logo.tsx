@@ -14,6 +14,7 @@ export function Logo({ href, width = 100 }: ILogoProps) {
 				src={LockupHorizontal}
 				alt="Kelvan Brandt Logo"
 				width={width}
+				loading="eager"
 			/>
 		)
 
