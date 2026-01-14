@@ -7,9 +7,10 @@ import { useState } from "react"
 
 const TODOS = [
 	"update reset logic to detect for collisions instead of resetting every time the viewport changes",
-	"implement window snapping to edges and other windows",
 	"set window to active when a drag starts",
-	"add bundle analyzer as a window",
+	"give mobile warning notice",
+	"implement reverse proxy for analytics",
+	"debug what is going on with morphling",
 ]
 
 export function Todos() {
