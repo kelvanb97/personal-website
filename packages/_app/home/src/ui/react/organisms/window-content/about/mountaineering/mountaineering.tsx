@@ -10,7 +10,9 @@ import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { MOUNT_RAINIER_DATA } from "./data/20250807-mt-rainier"
 import { NORTH_TWIN_DATA } from "./data/20250818-north-twin"
+import { LARRABEE_DATA } from "./data/20250819-larrabee"
 import { MOUNT_BAKER_DATA } from "./data/20250902-mt-baker"
+import { MOUNT_DANIEL_DATA } from "./data/20250918-mt-daniel"
 
 export function Mountaineering() {
 	return (
@@ -32,13 +34,21 @@ export function Mountaineering() {
 					*stats provided are for the days that I went out, NOT in
 					general.
 				</TextBody>
+				<TextBody size="sm" variant="muted-foreground">
+					*my ratings will likely become stale over time, after I
+					climb more mountains.
+				</TextBody>
 			</YStack>
 			<YStack>
 				<MountainEntry {...MOUNT_RAINIER_DATA} />
 				<TimeLineDivider />
+				<MountainEntry {...NORTH_TWIN_DATA} className="-mt-1.5" />
+				<TimeLineDivider flipHorizontal />
+				<MountainEntry {...LARRABEE_DATA} className="-mt-1.5" />
+				<TimeLineDivider />
 				<MountainEntry {...MOUNT_BAKER_DATA} className="-mt-1.5" />
 				<TimeLineDivider flipHorizontal />
-				<MountainEntry {...NORTH_TWIN_DATA} className="-mt-1.5" />
+				<MountainEntry {...MOUNT_DANIEL_DATA} className="-mt-1.5" />
 			</YStack>
 			{/* HACK: space divider */}
 			<div>&nbsp;</div>
