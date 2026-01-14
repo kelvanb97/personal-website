@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "#assets/icons/lucide-icons"
 import { Flex } from "#primitives/flex"
 import { XStack } from "#primitives/x-stack"
-import { cn } from "#utils/cn.js"
+import { cn } from "#utils/cn"
 import Image from "next/image"
 import {
 	forwardRef,
@@ -13,14 +13,14 @@ import {
 	useState,
 } from "react"
 
-type TSlide =
+export type TCarouselSlide =
 	| { type: "video"; src: string }
 	| { type: "image"; src: string; alt: string; width: number; height: number }
 
 const AUTO_MS = 2000
 
 interface ICarouselProps {
-	slides: TSlide[]
+	slides: TCarouselSlide[]
 	autoMs?: number
 }
 

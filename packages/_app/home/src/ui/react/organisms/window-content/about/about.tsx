@@ -5,12 +5,13 @@ import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { useMemo, useState } from "react"
 import { Games } from "./games"
+import { Mountaineering } from "./mountaineering/mountaineering"
 import { Personal } from "./personal"
 
 const MITER_CUT_WIDTH = 32
 const CLIP_PATH = `polygon(0 0, 100% 0, calc(100% - ${MITER_CUT_WIDTH}px) 100%, 0% 100%)`
 
-type TTab = "personal" | "mountains" | "games" | "music" | "professional"
+type TTab = "personal" | "mountaineering" | "games" | "professional"
 
 export function About() {
 	const [activeTab, setActiveTab] = useState<TTab>("personal")
@@ -19,12 +20,10 @@ export function About() {
 		switch (activeTab) {
 			case "personal":
 				return <Personal />
-			case "mountains":
-				return <Mountains />
+			case "mountaineering":
+				return <Mountaineering />
 			case "games":
 				return <Games />
-			case "music":
-				return <Music />
 			case "professional":
 				return <Professional />
 		}
@@ -40,18 +39,18 @@ export function About() {
 						setActiveTab={setActiveTab}
 						className="z-10"
 						style={{
-							width: `calc(20% + ${MITER_CUT_WIDTH}px)`,
+							width: `calc(25% + ${MITER_CUT_WIDTH}px)`,
 							clipPath: CLIP_PATH,
 						}}
 						textStyle={{ marginLeft: -MITER_CUT_WIDTH }}
 					/>
 					<Tab
-						tab="mountains"
+						tab="mountaineering"
 						activeTab={activeTab}
 						setActiveTab={setActiveTab}
 						className="z-9"
 						style={{
-							width: `calc(20% + ${MITER_CUT_WIDTH}px)`,
+							width: `calc(25% + ${MITER_CUT_WIDTH}px)`,
 							marginLeft: `-${MITER_CUT_WIDTH}px`,
 							clipPath: CLIP_PATH,
 						}}
@@ -62,18 +61,7 @@ export function About() {
 						setActiveTab={setActiveTab}
 						className="z-8"
 						style={{
-							width: `calc(20% + ${MITER_CUT_WIDTH}px)`,
-							marginLeft: `-${MITER_CUT_WIDTH}px`,
-							clipPath: CLIP_PATH,
-						}}
-					/>
-					<Tab
-						tab="music"
-						activeTab={activeTab}
-						setActiveTab={setActiveTab}
-						className="z-7"
-						style={{
-							width: `calc(20% + ${MITER_CUT_WIDTH}px)`,
+							width: `calc(25% + ${MITER_CUT_WIDTH}px)`,
 							marginLeft: `-${MITER_CUT_WIDTH}px`,
 							clipPath: CLIP_PATH,
 						}}
@@ -84,7 +72,7 @@ export function About() {
 						setActiveTab={setActiveTab}
 						className="z-6"
 						style={{
-							width: "20%",
+							width: "25%",
 							marginLeft: `-${MITER_CUT_WIDTH}px`,
 						}}
 						textStyle={{
@@ -150,14 +138,6 @@ function GradientBg() {
 			}}
 		/>
 	)
-}
-
-function Mountains() {
-	return <div>This is Mountains</div>
-}
-
-function Music() {
-	return <div>This is Music</div>
 }
 
 function Professional() {
