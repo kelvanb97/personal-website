@@ -21,6 +21,7 @@
 		"./library/button": "./src/library/button/button.tsx",
 		"./library/button-vite": "./src/library/button-vite/button-vite.tsx",
 		"./library/card": "./src/library/card/card.tsx",
+		"./library/carousel": "./src/library/carousel/carousel.tsx",
 		"./library/checkbox": "./src/library/checkbox/checkbox.tsx",
 		"./library/command": "./src/library/command/command.tsx",
 		"./library/dialog": "./src/library/dialog/dialog.tsx",
