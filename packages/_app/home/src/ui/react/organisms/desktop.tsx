@@ -5,6 +5,7 @@ import { Bundle } from "./window-content/bundle"
 import { Contact } from "./window-content/contact"
 import { Performance } from "./window-content/performance"
 import { ProfilePic } from "./window-content/profile-pic"
+import { Projects } from "./window-content/projects/projects"
 import { Readme } from "./window-content/readme"
 import { Resume } from "./window-content/resume"
 import { Todos } from "./window-content/todos"
@@ -49,7 +50,7 @@ export function Desktop() {
 				desktopItem={desktopItems["projects"]}
 				isWindowActive={activeWindowId === "projects"}
 			>
-				<Resume />
+				<Projects />
 			</DesktopItem>
 			<DesktopItem
 				desktopItem={desktopItems["README.md"]}
