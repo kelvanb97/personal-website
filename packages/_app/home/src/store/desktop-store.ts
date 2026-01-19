@@ -66,7 +66,7 @@ const initialState: TDesktopState = {
 		// column 1
 		"profile-pic.jpg": {
 			id: "profile-pic.jpg",
-			iconSrc: "/assets/profile-pic.jpg",
+			iconSrc: "/assets/desktop-shortcut/profile-pic.jpg",
 			shortcut: {
 				x: 50,
 				y: 50,
@@ -84,7 +84,7 @@ const initialState: TDesktopState = {
 		},
 		performance: {
 			id: "performance",
-			iconSrc: "/assets/activity-monitor.png",
+			iconSrc: "/assets/desktop-shortcut/activity-monitor.png",
 			shortcut: {
 				x: 50,
 				y: 150,
@@ -102,7 +102,7 @@ const initialState: TDesktopState = {
 		},
 		about: {
 			id: "about",
-			iconSrc: "/assets/k-square.png",
+			iconSrc: "/assets/desktop-shortcut/k-square.png",
 			shortcut: {
 				x: 50,
 				y: 250,
@@ -120,7 +120,7 @@ const initialState: TDesktopState = {
 		},
 		contact: {
 			id: "contact",
-			iconSrc: "/assets/email-icon.png",
+			iconSrc: "/assets/desktop-shortcut/email-icon.png",
 			shortcut: {
 				x: 50,
 				y: 350,
@@ -138,7 +138,7 @@ const initialState: TDesktopState = {
 		},
 		"resume.pdf": {
 			id: "resume.pdf",
-			iconSrc: "/assets/pdf-file-icon.png",
+			iconSrc: "/assets/desktop-shortcut/pdf-file-icon.png",
 			shortcut: {
 				x: 50,
 				y: 450,
@@ -157,7 +157,7 @@ const initialState: TDesktopState = {
 		//column 2
 		projects: {
 			id: "projects",
-			iconSrc: "/assets/folder.png",
+			iconSrc: "/assets/desktop-shortcut/folder.png",
 			shortcut: {
 				x: 200,
 				y: 50,
@@ -175,7 +175,7 @@ const initialState: TDesktopState = {
 		},
 		"README.md": {
 			id: "README.md",
-			iconSrc: "/assets/md-icon.png",
+			iconSrc: "/assets/desktop-shortcut/md-icon.png",
 			shortcut: {
 				x: 200,
 				y: 150,
@@ -193,7 +193,7 @@ const initialState: TDesktopState = {
 		},
 		todos: {
 			id: "todos",
-			iconSrc: "/assets/notes.png",
+			iconSrc: "/assets/desktop-shortcut/notes.png",
 			shortcut: {
 				x: 200,
 				y: 250,
@@ -211,7 +211,7 @@ const initialState: TDesktopState = {
 		},
 		"bundle-analysis": {
 			id: "bundle-analysis",
-			iconSrc: "/assets/bundle-analyze.png",
+			iconSrc: "/assets/desktop-shortcut/bundle-analyze.png",
 			shortcut: {
 				x: 200,
 				y: 350,
