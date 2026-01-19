@@ -6,6 +6,7 @@ interface IViewportContext {
 		width: number
 		height: number
 	}
+	isMobile: boolean
 }
 
 const ViewportContext = createContext<IViewportContext | undefined>(undefined)
@@ -22,6 +23,7 @@ export const ViewportProvider = ({
 	children,
 }: IViewportProviderProps) => {
 	const [viewport, setViewport] = useState({ width: 0, height: 0 })
+	const [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
 		const el = containerRef.current
@@ -33,6 +35,7 @@ export const ViewportProvider = ({
 			setViewport((s) =>
 				s.width === w && s.height === h ? s : { width: w, height: h },
 			)
+			setIsMobile(w <= 768)
 
 			// TODO: check the reset, not a hard reset
 			useDesktopStore.getState().reset()
@@ -55,9 +58,10 @@ export const ViewportProvider = ({
 
 	const value: IViewportContext = useMemo(
 		() => ({
+			isMobile,
 			viewport,
 		}),
-		[viewport],
+		[viewport, isMobile],
 	)
 
 	return (

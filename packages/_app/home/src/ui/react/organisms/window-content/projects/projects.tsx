@@ -63,7 +63,7 @@ function ActiveProject({
 			case "kaiber":
 				return "https://kaiber.ai"
 			case "star-child":
-				return "https://starchild.com"
+				return "https://starchild.app"
 			case "flip-sourcer":
 				return "https://flipsourcer.com"
 			default:
@@ -78,27 +78,25 @@ function ActiveProject({
 
 	return (
 		<YStack className="min-w-5xl max-w-5xl mx-auto space-y-16">
-			<XStack className="justify-between">
-				{link && (
-					<Flex className="items-center">
-						<Button
-							variant="outline"
-							className="rounded-full"
-							onClick={() => window.open(link, "_blank")}
-						>
-							Visit site
-							<ArrowUpRightIcon />
-						</Button>
-					</Flex>
-				)}
+			<XStack className="justify-end ml-auto space-x-4">
 				<Button
-					className="justify-end ml-auto"
 					variant="outline"
+					className="rounded-full"
 					onClick={handleBack}
 				>
 					<ChevronLeftIcon />
 					Back
 				</Button>
+				{link && (
+					<Button
+						variant="outline"
+						className="rounded-full"
+						onClick={() => window.open(link, "_blank")}
+					>
+						Visit site
+						<ArrowUpRightIcon />
+					</Button>
+				)}
 			</XStack>
 			{displayProject}
 		</YStack>
