@@ -76,16 +76,17 @@ export const MOUNT_RAINIER_DATA: IMountainEntryProps = {
 		"Slog through the fog up to camp Muir. Attempted to sleep in the Gombu Hut (altitude was noticeable).",
 		`Basic mountaineering training. We covered how to walk in crampons
 		and use an ice axe, as well as basic rope work techniques. We then
-		made the short journey from Camp Muir to Ingraham Flats (it was
-		f****** hot out). Dinner is at 6pm, then you are supposed to magically
+		made the short journey from Camp Muir to Ingraham Flats (it was insanely
+		hot out). Dinner is at 6pm, then you are supposed to magically
 		fall asleep immediately after. Didn't happen. Summit wake up time
-		is midnight.`,
-		`Summit day! I have never even hiked in the dark... now I am tasked with crossing ladders, snow
-		plugs/brides, and navigating crevasses. Not too terribly difficult but a bit unnerving. The rest
-		is a bit of a blur, sleep deprivation + altitude effects. One rope group had to turn around due to
-		altitude sickness. The feeling of elation upon reaching the summit is indescribable. Down climbing
-		sucked, it was hot, and there were tens if not hundreds of people. I was also exhausted. As seen in
-		in the photos, I fell asleep on the bus. I couldn't stay awake.`,
+		is 11pm for a midnight departure.`,
+		`Summit day! I had never even hiked in the dark. Now I am tasked with crossing ladders, snow
+		plugs/bridges, and navigating crevasses for 6 hours in the dark. Not too terribly difficult but
+		a bit unnerving. As the lead rope team we kicked in a new route, much of it over a steep pitch
+		of blue ice.  Our third rope team lagged, and turned around due to exhaustion and altitude sickness.
+		The elation of reaching the summit at sunrise is indescribable.   After five grueling miles up, we
+		had ten brutal miles to down hike all the way back to the van.  It was hot, and very few summited
+		that day.  As seen in the photos I was exhausted, after a great Nepalese meal it was lights out in the back of the van.`,
 	],
 	slides: RAINIER_SLIDES,
 }

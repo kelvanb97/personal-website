@@ -7,6 +7,7 @@ import { useMemo, useState } from "react"
 import { Games } from "./games"
 import { Mountaineering } from "./mountaineering/mountaineering"
 import { Personal } from "./personal"
+import { Professional } from "./professional"
 
 const MITER_CUT_WIDTH = 32
 const CLIP_PATH = `polygon(0 0, 100% 0, calc(100% - ${MITER_CUT_WIDTH}px) 100%, 0% 100%)`
@@ -138,8 +139,4 @@ function GradientBg() {
 			}}
 		/>
 	)
-}
-
-function Professional() {
-	return <div>This is Professional</div>
 }

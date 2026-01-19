@@ -1,7 +1,11 @@
 import { Button } from "@kelvan-design/ui/library/button"
 import { TextBody } from "@kelvan-design/ui/library/text"
-import { ChevronLeftIcon } from "@kelvan-design/ui/lucide-icons"
+import {
+	ArrowUpRightIcon,
+	ChevronLeftIcon,
+} from "@kelvan-design/ui/lucide-icons"
 import { Flex } from "@kelvan-design/ui/primitives/flex"
+import { XStack } from "@kelvan-design/ui/primitives/x-stack"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { useCallback, useMemo, useState } from "react"
 import { FlipSourcer, FlipSourcerJobCard } from "./projects/flip-sourcer"
@@ -52,6 +56,21 @@ function ActiveProject({
 		}
 	}, [activeProject])
 
+	const link = useMemo(() => {
+		switch (activeProject) {
+			case "kelvco":
+				return null
+			case "kaiber":
+				return "https://kaiber.ai"
+			case "star-child":
+				return "https://starchild.com"
+			case "flip-sourcer":
+				return "https://flipsourcer.com"
+			default:
+				return null
+		}
+	}, [activeProject])
+
 	const handleBack = useCallback(
 		() => setActiveProject(null),
 		[setActiveProject],
@@ -59,14 +78,28 @@ function ActiveProject({
 
 	return (
 		<YStack className="min-w-5xl max-w-5xl mx-auto space-y-16">
-			<Button
-				className="justify-end ml-auto"
-				variant="outline"
-				onClick={handleBack}
-			>
-				<ChevronLeftIcon />
-				Back
-			</Button>
+			<XStack className="justify-between">
+				{link && (
+					<Flex className="items-center">
+						<Button
+							variant="outline"
+							className="rounded-full"
+							onClick={() => window.open(link, "_blank")}
+						>
+							Visit site
+							<ArrowUpRightIcon />
+						</Button>
+					</Flex>
+				)}
+				<Button
+					className="justify-end ml-auto"
+					variant="outline"
+					onClick={handleBack}
+				>
+					<ChevronLeftIcon />
+					Back
+				</Button>
+			</XStack>
 			{displayProject}
 		</YStack>
 	)

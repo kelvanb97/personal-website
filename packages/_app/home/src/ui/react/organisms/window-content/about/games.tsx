@@ -65,6 +65,10 @@ function Dota2() {
 					It rewards pattern recognition and communication as much as
 					mechanics.
 				</TextBody>
+				<TextBody variant="accent-foreground">
+					I was in the top 0.5% of players back in 2016 (then other
+					commitments took over).
+				</TextBody>
 			</YStack>
 		</XStack>
 	)

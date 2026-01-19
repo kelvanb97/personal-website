@@ -1,5 +1,7 @@
+import { Button } from "@kelvan-design/ui/library/button"
 import { Card, CardContent } from "@kelvan-design/ui/library/card"
 import { TextBody } from "@kelvan-design/ui/library/text"
+import { ArrowUpRightIcon } from "@kelvan-design/ui/lucide-icons"
 import { Flex } from "@kelvan-design/ui/primitives/flex"
 import { YStack } from "@kelvan-design/ui/primitives/y-stack"
 import { JobCard } from "../job-card"
@@ -40,7 +42,16 @@ export function Kaiber() {
 					badgeText="contract"
 				/>
 			</Flex>
-
+			<Flex className="justify-center items-center">
+				<Button
+					variant="outline"
+					className="rounded-full"
+					onClick={() => window.open("https://kaiber.ai", "_blank")}
+				>
+					Visit site
+					<ArrowUpRightIcon />
+				</Button>
+			</Flex>
 			<Card>
 				<CardContent>
 					<YStack className="space-y-4">

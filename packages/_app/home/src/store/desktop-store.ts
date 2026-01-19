@@ -55,6 +55,7 @@ type TDesktopActions = {
 		id: TDesktopItemId,
 		size: Partial<Pick<TWindowState, "width" | "height">>,
 	) => void
+	sendBack: (id: TDesktopItemId) => void
 	bringToFront: (id: TDesktopItemId) => void
 	setActiveWindow: (id: TDesktopItemId) => void
 	reset: () => void
@@ -65,7 +66,7 @@ const initialState: TDesktopState = {
 		// column 1
 		"profile-pic.jpg": {
 			id: "profile-pic.jpg",
-			iconSrc: "/assets/desktop-shortcut/profile-pic.jpg",
+			iconSrc: "/assets/profile-pic.jpg",
 			shortcut: {
 				x: 50,
 				y: 50,
@@ -83,7 +84,7 @@ const initialState: TDesktopState = {
 		},
 		performance: {
 			id: "performance",
-			iconSrc: "/assets/desktop-shortcut/activity-monitor.png",
+			iconSrc: "/assets/activity-monitor.png",
 			shortcut: {
 				x: 50,
 				y: 150,
@@ -101,7 +102,7 @@ const initialState: TDesktopState = {
 		},
 		about: {
 			id: "about",
-			iconSrc: "/assets/desktop-shortcut/k-square.png",
+			iconSrc: "/assets/k-square.png",
 			shortcut: {
 				x: 50,
 				y: 250,
@@ -112,14 +113,14 @@ const initialState: TDesktopState = {
 				isMaximized: false,
 				x: 106,
 				y: 280,
-				width: 1048,
+				width: 800,
 				height: 600,
 				zIndex: 1,
 			},
 		},
 		contact: {
 			id: "contact",
-			iconSrc: "/assets/desktop-shortcut/email-icon.png",
+			iconSrc: "/assets/email-icon.png",
 			shortcut: {
 				x: 50,
 				y: 350,
@@ -137,7 +138,7 @@ const initialState: TDesktopState = {
 		},
 		"resume.pdf": {
 			id: "resume.pdf",
-			iconSrc: "/assets/desktop-shortcut/pdf-file-icon.png",
+			iconSrc: "/assets/pdf-file-icon.png",
 			shortcut: {
 				x: 50,
 				y: 450,
@@ -156,7 +157,7 @@ const initialState: TDesktopState = {
 		//column 2
 		projects: {
 			id: "projects",
-			iconSrc: "/assets/desktop-shortcut/folder.png",
+			iconSrc: "/assets/folder.png",
 			shortcut: {
 				x: 200,
 				y: 50,
@@ -174,7 +175,7 @@ const initialState: TDesktopState = {
 		},
 		"README.md": {
 			id: "README.md",
-			iconSrc: "/assets/desktop-shortcut/md-icon.png",
+			iconSrc: "/assets/md-icon.png",
 			shortcut: {
 				x: 200,
 				y: 150,
@@ -192,7 +193,7 @@ const initialState: TDesktopState = {
 		},
 		todos: {
 			id: "todos",
-			iconSrc: "/assets/desktop-shortcut/notes.png",
+			iconSrc: "/assets/notes.png",
 			shortcut: {
 				x: 200,
 				y: 250,
@@ -210,7 +211,7 @@ const initialState: TDesktopState = {
 		},
 		"bundle-analysis": {
 			id: "bundle-analysis",
-			iconSrc: "/assets/desktop-shortcut/bundle-analyze.png",
+			iconSrc: "/assets/bundle-analyze.png",
 			shortcut: {
 				x: 200,
 				y: 350,
@@ -245,6 +246,20 @@ export const useDesktopStore = create<TDesktopState & TDesktopActions>()(
 							[id]: {
 								...item,
 								shortcut: { ...item.shortcut, ...pos },
+							},
+						},
+					}
+				}),
+			sendBack: (id) =>
+				set((s) => {
+					const item = s.items[id]
+					if (!item) return s
+					return {
+						items: {
+							...s.items,
+							[id]: {
+								...item,
+								window: { ...item.window, zIndex: 0 },
 							},
 						},
 					}

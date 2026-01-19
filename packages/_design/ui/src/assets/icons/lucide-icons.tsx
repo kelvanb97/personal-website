@@ -2,6 +2,7 @@ export {
 	ArrowLeft as ArrowLeftIcon,
 	ArrowRight as ArrowRightIcon,
 	ArrowUpDown as ArrowUpDownIcon,
+	ArrowUpRight as ArrowUpRightIcon,
 	Blocks as BlocksIcon,
 	BotOff as BotOffIcon,
 	Bug as BugIcon,

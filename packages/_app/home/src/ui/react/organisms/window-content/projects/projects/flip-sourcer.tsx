@@ -40,7 +40,6 @@ export function FlipSourcer() {
 					badgeText="self-employed"
 				/>
 			</Flex>
-
 			<Card>
 				<CardContent>
 					<YStack className="space-y-4">
@@ -49,7 +48,7 @@ export function FlipSourcer() {
 							end-to-end. The core problem was simple to describe
 							but hard to execute: collect and normalize massive
 							amounts of e-commerce product data reliably,
-							cheaply, and fast — while dealing with bot
+							cheaply, and quickly — while dealing with bot
 							detection, rate limits, and constantly changing
 							upstream behavior.
 						</TextBody>

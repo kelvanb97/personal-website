@@ -36,7 +36,6 @@ export function Kelvco() {
 					position="Owner"
 				/>
 			</Flex>
-
 			<Card>
 				<CardContent>
 					<YStack className="space-y-4">
@@ -44,10 +43,9 @@ export function Kelvco() {
 							Kelvco LLC is my consulting umbrella for all tech
 							work with early-stage startups and growth-stage
 							teams across web, mobile, and AI. It started pretty
-							much on accident — I was working a contract gig
-							shortly after college, that company started going
-							under and cut my hours, and I went out to find
-							additional contract work to fill the gap.
+							much on accident — people started reaching out to me
+							for help with projects in college. It started to
+							snowball from there.
 						</TextBody>
 						<TextBody variant="accent-foreground">
 							Since then, Kelvco has become the place where I
