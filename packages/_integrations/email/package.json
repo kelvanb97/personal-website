@@ -1,0 +1,26 @@
+{
+	"name": "@kelvan-integrations/email",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"exports": {
+		".": "./src/send-email.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "eslint ."
+	},
+	"dependencies": {
+		"@kelvan-core/dates": "workspace:*",
+		"@kelvan-core/result": "workspace:*",
+		"@kelvan-integrations/resend": "workspace:*",
+		"@kelvan-shared/consts": "workspace:*"
+	},
+	"devDependencies": {
+		"@kelvan-core/eslint": "workspace:*",
+		"@kelvan-core/tsconfig": "workspace:*",
+		"@types/node": "20.19.2",
+		"eslint": "9.24.0",
+		"typescript": "5.8.3"
+	}
+}

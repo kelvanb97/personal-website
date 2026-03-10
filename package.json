@@ -1,0 +1,38 @@
+{
+	"name": "kelvan",
+	"private": true,
+	"version": "0.0.0",
+	"engines": {
+		"node": ">=22",
+		"pnpm": ">=10"
+	},
+	"packageManager": "pnpm@10.27.0",
+	"scripts": {
+		"build": "turbo run build",
+		"check-types": "turbo run check-types",
+		"depcheck": "pnpm -r --workspace-concurrency=1 exec -- sh -c 'echo \"\n$PNPM_PACKAGE_NAME\" && depcheck || true'",
+		"destroy-cache": "rm -rf .turbo; find . -type d -path '*/*/.turbo' -print0 | xargs -0 rm -rf; rm -rf .next; find . -type d -path '*/*/.next' -print0 | xargs -0 rm -rf",
+		"dev": "turbo run dev",
+		"format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,css}\"",
+		"lint": "turbo run lint",
+		"prepare": "husky",
+		"purge": "rm -rf node_modules; find . -type d -path '*/*/node_modules' -print0 | xargs -0 rm -rf",
+		"test": "turbo run test"
+	},
+	"dependencies": {
+		"husky": "9.1.7"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "19.8.0",
+		"@commitlint/config-conventional": "19.8.0",
+		"@commitlint/types": "19.8.0",
+		"@ianvs/prettier-plugin-sort-imports": "4.4.1",
+		"conventional-changelog-atom": "5.0.0",
+		"depcheck": "1.4.7",
+		"lint-staged": "15.5.1",
+		"prettier": "3.5.3",
+		"syncpack": "13.0.3",
+		"turbo": "2.7.3",
+		"typescript": "5.8.3"
+	}
+}

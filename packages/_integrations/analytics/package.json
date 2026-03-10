@@ -1,0 +1,39 @@
+{
+	"name": "@kelvan-app/analytics",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		"./alias-action": "./src/next/actions/alias-action.ts",
+		"./track-action": "./src/next/actions/track-action.ts",
+		"./use-track-action": "./src/next/hooks/use-track-action.ts",
+		"./browser/get-anon-id": "./src/browser/get-anon-id.ts",
+		"./browser/instrumentation-client": "./src/browser/instrumentation-client.ts",
+		"./types": "./src/types.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "eslint ./src"
+	},
+	"peerDependencies": {
+		"next": "^16.1.1"
+	},
+	"dependencies": {
+		"@kelvan-integrations/posthog-analytics": "workspace:*",
+		"@kelvan-shared/consts": "workspace:*"
+	},
+	"devDependencies": {
+		"@kelvan-core/eslint": "workspace:*",
+		"@kelvan-core/tsconfig": "workspace:*",
+		"eslint": "9.24.0",
+		"next": "16.1.1"
+	},
+	"imports": {
+		"#*": [
+			"./src/*",
+			"./src/*.ts",
+			"./src/*.tsx"
+		]
+	}
+}

@@ -1,0 +1,68 @@
+{
+	"name": "@kelvan-app/contact",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		"./contact-form": "./src/ui/react/organisms/contact-form.tsx"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "eslint ./src"
+	},
+	"peerDependencies": {
+		"@kelvan-design/ui": "workspace:*",
+		"next": "^16.1.1",
+		"react": "^19.2.1",
+		"react-dom": "^19.2.1",
+		"zod": "^4.1.12"
+	},
+	"dependencies": {
+		"@kelvan-api/contact": "workspace:*",
+		"@kelvan-core/next-safe-action": "workspace:*"
+	},
+	"devDependencies": {
+		"@kelvan-core/eslint": "workspace:*",
+		"@kelvan-core/tsconfig": "workspace:*",
+		"@kelvan-design/ui": "workspace:*",
+		"@types/node": "20.19.2",
+		"@types/react": "19.1.12",
+		"eslint": "9.24.0",
+		"next": "16.1.1",
+		"react": "19.2.1",
+		"react-dom": "19.2.1",
+		"zod": "4.1.12"
+	},
+	"imports": {
+		"#*": [
+			"./src/*",
+			"./src/*.ts",
+			"./src/*.tsx"
+		],
+		"#actions*": [
+			"./src/next/actions*",
+			"./src/next/actions*.ts"
+		],
+		"#atoms*": [
+			"./src/ui/react/atoms*",
+			"./src/ui/react/atoms*.ts",
+			"./src/ui/react/atoms*.tsx"
+		],
+		"#molecules*": [
+			"./src/ui/react/molecules*",
+			"./src/ui/react/molecules*.ts",
+			"./src/ui/react/molecules*.tsx"
+		],
+		"#organisms*": [
+			"./src/ui/react/organisms*",
+			"./src/ui/react/organisms*.ts",
+			"./src/ui/react/organisms*.tsx"
+		],
+		"#templates*": [
+			"./src/ui/react/templates*",
+			"./src/ui/react/templates*.ts",
+			"./src/ui/react/templates*.tsx"
+		]
+	}
+}
