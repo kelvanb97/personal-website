@@ -1,9 +1,15 @@
-## Getting Started
+# web
 
-First, run the development server:
+Main Next.js 16 web application. Entry point for the personal website.
 
-```bash
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- App Router with Turbopack dev server
+- PostHog analytics integration (with reverse proxy)
+- Dark mode support via next-themes
+- Environment validation with @t3-oss/env-nextjs
+
+## Dependencies
+
+- `@kelvan-app/home` — home screen
+- `@kelvan-design/ui` — component library
