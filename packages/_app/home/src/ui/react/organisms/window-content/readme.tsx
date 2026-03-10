@@ -79,35 +79,6 @@ export function Readme() {
 					variant="accent-foreground"
 					className="font-bold mt-3"
 				>
-					Can I see the source code?
-				</TextBody>
-				<TextBody
-					size="sm"
-					variant="accent-foreground"
-					className="mt-2"
-				>
-					Yes! Please use the contact form to get in touch with me.
-				</TextBody>
-				<TextBody
-					size="2xl"
-					variant="accent-foreground"
-					className="font-bold mt-3"
-				>
-					Why not open source it?
-				</TextBody>
-				<TextBody
-					size="sm"
-					variant="accent-foreground"
-					className="mt-2"
-				>
-					TL;DR I like the feedback loop. I like to know who wants to
-					see my code.
-				</TextBody>
-				<TextBody
-					size="2xl"
-					variant="accent-foreground"
-					className="font-bold mt-3"
-				>
 					Is there a backend?
 				</TextBody>
 				<TextBody
