@@ -55,6 +55,7 @@ export function DesktopShortcut({
 	)
 
 	const [isHovered, setIsHovered] = useState(false)
+	const didDragRef = useRef(false)
 
 	const onMouseEnter = useCallback(() => setIsHovered(true), [])
 	const onMouseLeave = useCallback(() => setIsHovered(false), [])
@@ -63,6 +64,7 @@ export function DesktopShortcut({
 		(e: React.MouseEvent) => {
 			e.preventDefault()
 			e.stopPropagation()
+			if (didDragRef.current) return
 			openWindow(id)
 		},
 		[id, openWindow],
@@ -85,6 +87,8 @@ export function DesktopShortcut({
 			e.stopPropagation()
 			e.currentTarget.setPointerCapture(e.pointerId)
 
+			didDragRef.current = false
+
 			dragRef.current = {
 				pointerId: e.pointerId,
 				startClientX: e.clientX,
@@ -106,6 +110,10 @@ export function DesktopShortcut({
 
 			const dx = e.clientX - d.startClientX
 			const dy = e.clientY - d.startClientY
+
+			if (!didDragRef.current && Math.abs(dx) + Math.abs(dy) > 3) {
+				didDragRef.current = true
+			}
 
 			const nextX = d.startX + dx
 			const nextY = d.startY + dy
